@@ -18,6 +18,15 @@ void main() {
 class AuthRoute extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
+  req_auth() async{
+    var response = await http.post(
+        'http://10.0.2.2:1337/auth',
+        body: {'nickname': 'test', 'password': '10'});
+    print(
+        "Response status: ${response.statusCode}");
+    print("Response body: ${response.body}");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,12 +79,7 @@ class AuthRoute extends StatelessWidget {
                             if (_formKey.currentState.validate()) {
                               // If the form is valid, we want to show a Snackbar
                               Scaffold.of(context).showSnackBar(SnackBar(content: Text('Обработка...')));
-                              http.get('https://json.flutter.su/echo').then((response) {
-                                print("Response status: ${response.statusCode}");
-                                print("Response body: ${response.body}");
-                              }).catchError((error){
-                                print("Error: $error");
-                              });
+                              req_auth();
                             }
                           },
                           child: Text('Войти'),
