@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'helpers/ensure_visible.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -21,13 +22,13 @@ class AuthRoute extends StatefulWidget {
 
 class _AuthRouteState extends State<AuthRoute> {
   final _formKey = GlobalKey<FormState>();
+  final _loginFocusNode = FocusNode();
+  final _passwordFocusNode = FocusNode();
 
   req_auth() async {
-    var response = await http.post(
-        'http://10.0.2.2:1337/auth',
+    var response = await http.post('http://10.0.2.2:1337/auth',
         body: {'nickname': 'test', 'password': '10'});
-    print(
-        "Response status: ${response.statusCode}");
+    print("Response status: ${response.statusCode}");
     print("Response body: ${response.body}");
   }
 
@@ -48,29 +49,37 @@ class _AuthRouteState extends State<AuthRoute> {
             shrinkWrap: true,
             padding: EdgeInsets.only(left: 50, right: 50),
             children: <Widget>[
-              TextFormField(
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.person),
-                  //hintText: 'Логин или E-Mail',
-                  labelText: 'Логин',
+              EnsureVisibleWhenFocused(
+                focusNode: _loginFocusNode,
+                child: TextFormField(
+                  focusNode: _loginFocusNode,
+                  decoration: const InputDecoration(
+                    icon: Icon(Icons.person),
+                    //hintText: 'Логин или E-Mail',
+                    labelText: 'Логин',
+                  ),
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Пожалуйста, введите логин';
+                    }
+                  },
                 ),
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Пожалуйста, введите логин';
-                  }
-                },
               ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.lock),
-                  //hintText: 'Логин или E-Mail',
-                  labelText: 'Пароль',
+              EnsureVisibleWhenFocused(
+                focusNode: _passwordFocusNode,
+                child: TextFormField(
+                  focusNode: _passwordFocusNode,
+                  decoration: const InputDecoration(
+                    icon: Icon(Icons.lock),
+                    //hintText: 'Логин или E-Mail',
+                    labelText: 'Пароль',
+                  ),
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Пожалуйста, введите пароль';
+                    }
+                  },
                 ),
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Пожалуйста, введите пароль';
-                  }
-                },
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
