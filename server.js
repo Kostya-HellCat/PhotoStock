@@ -70,8 +70,10 @@ app.post('/auth', function(req, res) {
             if (req.fields.password == pjson[key].password) {
                 session = 1;
                 id = key;
+				console.log('Успешный вход');
             }
             else session = 0;
+			console.log('Пользователь не найден');
         }
     }
 

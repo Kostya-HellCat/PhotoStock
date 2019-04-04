@@ -15,6 +15,31 @@ void main() {
   ));
 }
 
+// Popup Auth Error route
+
+class AuthErrorPopup extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text('Ошибка'),
+    content: SingleChildScrollView(
+    child: ListBody(
+    children: <Widget>[
+    Text('Авторизация не удалась. Пожалуйста, попробуйте позже.'),
+        ]
+    )),
+      actions: [
+        FlatButton(
+         onPressed: () {Navigator.pop(context);},
+          child: Text('Ок'),
+        ),
+      ],
+    );
+  }
+}
+
+// MAIN AUTH ROUTE
+
 class AuthRoute extends StatefulWidget {
   @override
   _AuthRouteState createState() => _AuthRouteState();
@@ -26,11 +51,22 @@ class _AuthRouteState extends State<AuthRoute> {
   final _passwordFocusNode = FocusNode();
 
   req_auth() async {
-    var response = await http.post('http://10.0.2.2:1337/auth',
-        body: {'nickname': 'test', 'password': '10'});
+//    var response = await http.post('http://10.0.2.2:1337/auth',
+//        body: {});
+//    print("Response status: ${response.statusCode}");
+//    print("Response body: ${response.body}");
+
+    var response = await http.post('https://json.flutter.su/echo', body: {'name':'test','num':'10'});
     print("Response status: ${response.statusCode}");
     print("Response body: ${response.body}");
+
+    Navigator.push(context, PageRouteBuilder(
+        opaque: false,
+        pageBuilder: (BuildContext context, _, __) => AuthErrorPopup()
+    ));
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -86,10 +122,10 @@ class _AuthRouteState extends State<AuthRoute> {
                 child: Center(
                   child: RaisedButton(
                     onPressed: () {
+
                       if (_formKey.currentState.validate()) {
                         // If the form is valid, we want to show a Snackbar
-                        Scaffold.of(context).showSnackBar(
-                            SnackBar(content: Text('Обработка...')));
+
                         req_auth();
                       }
                     },
@@ -100,10 +136,7 @@ class _AuthRouteState extends State<AuthRoute> {
               FlatButton(
                 child: Text('Забыли пароль?'),
                 onPressed: () {
-                  /* Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => RegRoute()),
-                ); */
+
                 },
               ),
               FlatButton(
