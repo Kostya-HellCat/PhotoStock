@@ -45,28 +45,35 @@ class AuthRoute extends StatefulWidget {
   _AuthRouteState createState() => _AuthRouteState();
 }
 
+class UserData{
+
+  //Рабочий логин = 'Katy' пасс = '123'
+
+  String username = '';
+  String password = '';
+}
+
 class _AuthRouteState extends State<AuthRoute> {
   final _formKey = GlobalKey<FormState>();
   final _loginFocusNode = FocusNode();
   final _passwordFocusNode = FocusNode();
+  UserData user = new UserData();
+
 
   req_auth() async {
-//    var response = await http.post('http://10.0.2.2:1337/auth',
-//        body: {});
-//    print("Response status: ${response.statusCode}");
-//    print("Response body: ${response.body}");
 
-    var response = await http.post('https://json.flutter.su/echo', body: {'name':'test','num':'10'});
-    print("Response status: ${response.statusCode}");
-    print("Response body: ${response.body}");
+    var response = await http.post('http://10.0.2.2:1337/auth', body: {'username' : user.username, 'password' : user.password});
+    //print("Response status: ${response.statusCode}");
+    //print("Response body: ${response.body}");
+
+    print("User name = ${user.username}");
+    print("User name = ${user.password}");
 
     Navigator.push(context, PageRouteBuilder(
         opaque: false,
         pageBuilder: (BuildContext context, _, __) => AuthErrorPopup()
     ));
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -99,6 +106,7 @@ class _AuthRouteState extends State<AuthRoute> {
                       return 'Пожалуйста, введите логин';
                     }
                   },
+                  onSaved: (val) => user.username = val,
                 ),
               ),
               EnsureVisibleWhenFocused(
@@ -115,6 +123,7 @@ class _AuthRouteState extends State<AuthRoute> {
                       return 'Пожалуйста, введите пароль';
                     }
                   },
+                    onSaved: (val) => user.password = val,
                 ),
               ),
               Padding(

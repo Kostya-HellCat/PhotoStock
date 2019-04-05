@@ -3,10 +3,7 @@ var url              = require('url');
 var fs               = require('fs');
 const express        = require('express');
 const app            = express();
-const bodyParser     = require('body-parser');
 const formidable     = require('express-formidable');
-
-app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(formidable({
     encoding: 'utf-8',
@@ -36,8 +33,10 @@ app.post('/auth', function(req, res) {
     var text = fs.readFileSync('database.json','UTF-8', function (err,data) {
         if (err) {
             console.error(err);
+			console.log(data);
         }
         else {
+			console.log(data);
             data.toString();
         }
     });
@@ -70,10 +69,8 @@ app.post('/auth', function(req, res) {
             if (req.fields.password == pjson[key].password) {
                 session = 1;
                 id = key;
-				console.log('Успешный вход');
             }
             else session = 0;
-			console.log('Пользователь не найден');
         }
     }
 

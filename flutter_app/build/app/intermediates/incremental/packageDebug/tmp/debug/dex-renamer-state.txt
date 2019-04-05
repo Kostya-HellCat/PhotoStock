@@ -1,0 +1,4 @@
+#Fri Apr 05 21:31:11 MSK 2019
+base.0=D\:\\PhotoStock\\flutter_app\\build\\app\\intermediates\\transforms\\dexMerger\\debug\\0
+path.0=classes.dex
+renamed.0=classes.dex
