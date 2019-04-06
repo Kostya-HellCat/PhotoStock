@@ -134,7 +134,7 @@ class _AuthRouteState extends State<AuthRoute> {
 
                       if (_formKey.currentState.validate()) {
                         // If the form is valid, we want to show a Snackbar
-
+                        _formKey.currentState.save();
                         req_auth();
                       }
                     },

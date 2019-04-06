@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\PhotoStock\\flutter_app\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+            "outputFile": "C:\\Users\\HellCat\\Documents\\GitHub\\PhotoStock\\flutter_app\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
             "map": [
                 {
-                    "source": "D:\\PhotoStock\\flutter_app\\android\\app\\src\\main\\res\\values\\styles.xml",
+                    "source": "C:\\Users\\HellCat\\Documents\\GitHub\\PhotoStock\\flutter_app\\android\\app\\src\\main\\res\\values\\styles.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
