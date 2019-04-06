@@ -22,15 +22,36 @@ class AuthErrorPopup extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text('Ошибка'),
-    content: SingleChildScrollView(
-    child: ListBody(
-    children: <Widget>[
-    Text('Авторизация не удалась. Пожалуйста, попробуйте позже.'),
-        ]
-    )),
+      content: SingleChildScrollView(
+          child: ListBody(
+              children: <Widget>[
+                Text('Авторизация не удалась. Пожалуйста, попробуйте позже.'),
+              ]
+          )),
       actions: [
         FlatButton(
-         onPressed: () {Navigator.pop(context);},
+          onPressed: () {Navigator.pop(context);},
+          child: Text('Ок'),
+        ),
+      ],
+    );
+  }
+}
+
+class AuthNotFoundPopup extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text('Ошибка'),
+      content: SingleChildScrollView(
+          child: ListBody(
+              children: <Widget>[
+                Text('Пользователь с указанными данными не найден.'),
+              ]
+          )),
+      actions: [
+        FlatButton(
+          onPressed: () {Navigator.pop(context);},
           child: Text('Ок'),
         ),
       ],
@@ -51,6 +72,15 @@ class UserData{
 
   String username = '';
   String password = '';
+  String email = '';
+  int id;
+  String surname = '';
+  String name = '';
+  String gender = '';
+  String databirth = '';
+  String raiting = '';
+  String avatar = '';
+  var photo = <String>{};
 }
 
 class _AuthRouteState extends State<AuthRoute> {
@@ -63,16 +93,26 @@ class _AuthRouteState extends State<AuthRoute> {
   req_auth() async {
 
     var response = await http.post('http://10.0.2.2:1337/auth', body: {'username' : user.username, 'password' : user.password});
-    //print("Response status: ${response.statusCode}");
-    //print("Response body: ${response.body}");
+    if (response.statusCode == 200){
+      if (response.body == 'user_not_found'){
+        Navigator.push(context, PageRouteBuilder(
+            opaque: false,
+            pageBuilder: (BuildContext context, _, __) => AuthNotFoundPopup()
+        ));
+      }
+      else {
+          //Successful Request
+      }
+    }
+    else{
+      Navigator.push(context, PageRouteBuilder(
+          opaque: false,
+          pageBuilder: (BuildContext context, _, __) => AuthErrorPopup()
+      ));
+    }
+    //response.body
 
-    print("User name = ${user.username}");
-    print("User name = ${user.password}");
 
-    Navigator.push(context, PageRouteBuilder(
-        opaque: false,
-        pageBuilder: (BuildContext context, _, __) => AuthErrorPopup()
-    ));
   }
 
   @override
