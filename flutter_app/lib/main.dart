@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'helpers/ensure_visible.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -321,22 +322,28 @@ class UserRoute extends StatelessWidget {
             ),
           ]
       ),
-      drawer: Text('drawer'),
-      body: Row(
-        children: <Widget>[
-          Expanded(
-              child: Text('Raiting', textAlign: TextAlign.center)
-          ),
-          Expanded(
-            child: RawImage(
-              //Image: '',
-            )
-
-          ),
-          Expanded(
-              child: Text('Type', textAlign: TextAlign.center)
-          ),
-        ],
+      drawer: Text('drawer'), //левая навигация
+      body: Container(
+        color: Colors.grey[200],
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 10),
+        child: Row(
+          children: <Widget>[
+            Expanded(
+                child: Text('Raiting', textAlign: TextAlign.center)
+            ),
+        CircleAvatar(
+        backgroundImage: NetworkImage("https://pp.userapi.com/c633328/v633328661/23637/o0dWWCQLTcw.jpg"),
+            radius: 40,/*image: DecorationImage(
+              image: AssetImage('avatars/avatar_1.jpg');
+            ),*/
+            ),
+            Expanded(
+                child: Text('Type', textAlign: TextAlign.center)
+            ),
+          ],
+        ),
+      ),
       ),
       //body: Builder(),
     );
