@@ -9,8 +9,9 @@ void main() {
       primaryColor: Colors.indigo[400],
     ),
     routes: {
-      '/': (BuildContext context) => AuthRoute(),
-      '/reg': (context) => RegRoute()
+      '/': (BuildContext context) => UserRoute(), //AuthRoute()
+      '/reg': (context) => RegRoute(),
+      '/user': (context) => UserRoute(),
     },
   ));
 }
@@ -80,7 +81,7 @@ class UserData{
   String databirth = '';
   String raiting = '';
   String avatar = '';
-  var photo = <String>{};
+  var photo = <String>[];
 }
 
 class _AuthRouteState extends State<AuthRoute> {
@@ -153,6 +154,7 @@ class _AuthRouteState extends State<AuthRoute> {
                 focusNode: _passwordFocusNode,
                 child: TextFormField(
                   focusNode: _passwordFocusNode,
+                  obscureText: true,
                   decoration: const InputDecoration(
                     icon: Icon(Icons.lock),
                     //hintText: 'Логин или E-Mail',
@@ -289,6 +291,54 @@ class RegRoute extends StatelessWidget {
               ),
             ),
       ),
+    );
+  }
+}
+
+class UserRoute extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context3) {
+    return Scaffold(
+      appBar: AppBar(
+          leading: Builder(
+            builder: (BuildContext context3) {
+              return IconButton(
+                icon: const Icon(Icons.menu),
+                onPressed: () { Scaffold.of(context3).openDrawer(); },
+                tooltip: MaterialLocalizations.of(context3).openAppDrawerTooltip,
+              );
+            },
+          ),
+          title: Center(
+            child: Text("Eclipse"),
+          ),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.settings),
+              tooltip: 'Settings',
+              //onPressed: (),
+            ),
+          ]
+      ),
+      drawer: Text('drawer'),
+      body: Row(
+        children: <Widget>[
+          Expanded(
+              child: Text('Raiting', textAlign: TextAlign.center)
+          ),
+          Expanded(
+            child: RawImage(
+              //Image: '',
+            )
+
+          ),
+          Expanded(
+              child: Text('Type', textAlign: TextAlign.center)
+          ),
+        ],
+      ),
+      //body: Builder(),
     );
   }
 }
