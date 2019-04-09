@@ -68,6 +68,11 @@ class AuthRoute extends StatefulWidget {
   _AuthRouteState createState() => _AuthRouteState();
 }
 
+class MyBody extends StatefulWidget {
+  @override
+  createState() => new PhotoList();
+}
+
 class UserData{
 
   //Рабочий логин = 'Katy' пасс = '123'
@@ -82,7 +87,6 @@ class UserData{
   String databirth = '';
   String raiting = '';
   String avatar = '';
-  var photo = <String>[];
 }
 
 class _AuthRouteState extends State<AuthRoute> {
@@ -123,9 +127,6 @@ class _AuthRouteState extends State<AuthRoute> {
       appBar: AppBar(
         title: Text("Авторизация"),
       ),
-      //backgroundColor: Colors.indigo[400],
-      //resizeToAvoidBottomPadding: false,
-      //resizeToAvoidBottomInset: true,
       body: Container(
         alignment: Alignment.center,
         child: Form(
@@ -174,7 +175,6 @@ class _AuthRouteState extends State<AuthRoute> {
                 child: Center(
                   child: RaisedButton(
                     onPressed: () {
-
                       if (_formKey.currentState.validate()) {
                         // If the form is valid, we want to show a Snackbar
                         _formKey.currentState.save();
@@ -297,7 +297,6 @@ class RegRoute extends StatelessWidget {
 }
 
 class UserRoute extends StatelessWidget {
-
   @override
   Widget build(BuildContext context3) {
     return Scaffold(
@@ -326,26 +325,81 @@ class UserRoute extends StatelessWidget {
       body: Container(
         color: Colors.grey[200],
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 10),
-        child: Row(
+        padding: EdgeInsets.symmetric(vertical: 20),
+        child: Column(
           children: <Widget>[
-            Expanded(
-                child: Text('Raiting', textAlign: TextAlign.center)
+          Row(
+              children: <Widget>[
+                Expanded(
+                    child: Text('Raiting', textAlign: TextAlign.center)
+                ),
+            CircleAvatar(
+            backgroundImage: NetworkImage("https://pp.userapi.com/c633328/v633328661/23637/o0dWWCQLTcw.jpg"),
+                radius: 40,/*image: DecorationImage(
+                  image: AssetImage('avatars/avatar_1.jpg');
+                ),*/
+                ),
+                Expanded(
+                    child: Text('Type', textAlign: TextAlign.center)
+                ),
+              ],
             ),
-        CircleAvatar(
-        backgroundImage: NetworkImage("https://pp.userapi.com/c633328/v633328661/23637/o0dWWCQLTcw.jpg"),
-            radius: 40,/*image: DecorationImage(
-              image: AssetImage('avatars/avatar_1.jpg');
-            ),*/
+          new Divider(),
+          Row(
+              children: <Widget>[
+                FlatButton(
+                  padding: EdgeInsets.symmetric(horizontal: 50),
+                  color: Colors.grey[400],
+                  child: Text('Продано', textAlign: TextAlign.center),
+                  onPressed: () {
+                  },
+                ),
+                FlatButton(
+                  color: Colors.grey[400],
+                  child: Text('Куплено', textAlign: TextAlign.center),
+                  onPressed: () {
+                  },
+                  padding: EdgeInsets.symmetric(horizontal: 50),
+                ),
+              ],
             ),
-            Expanded(
-                child: Text('Type', textAlign: TextAlign.center)
-            ),
-          ],
+          Expanded(
+            child: new GridView.count(
+                crossAxisCount: 2,
+                children: <Widget>[
+                  new MyBody()
+                ]
+            )
+            )
+          ]
         ),
       ),
       ),
       //body: Builder(),
     );
+  }
+}
+
+class PhotoList extends  State<MyBody> {
+  List<String> _photo = [];
+
+  @override
+  Widget build(BuildContext context) {
+    return new ListView.builder(itemBuilder: (context3, i) {
+      final int index = i ~/ 2;
+
+
+      print('index $index'); // Что бы понимать, что программа не сдохла
+      print('length ${_photo.length}'); // Что бы понимать, что программа не сдохла
+
+      if (index >= _photo.length) _photo.addAll([
+        'https://pp.userapi.com/c633328/v633328661/23637/o0dWWCQLTcw.jpg',
+        'https://pp.userapi.com/c633328/v633328661/23637/o0dWWCQLTcw.jpg',
+        'https://pp.userapi.com/c633328/v633328661/23637/o0dWWCQLTcw.jpg'
+      ]);
+
+      return new ListTile(title: new Image.network(_photo[index]));
+
+    });
   }
 }
