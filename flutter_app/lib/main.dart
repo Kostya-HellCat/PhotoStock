@@ -13,6 +13,7 @@ void main() {
       '/': (BuildContext context) => UserRoute(), //AuthRoute()
       '/reg': (context) => RegRoute(),
       '/user': (context) => UserRoute(),
+      '/addphoto': (context) => AddPhotoRoute(),
     },
   ));
 }
@@ -298,6 +299,7 @@ class RegRoute extends StatelessWidget {
 
 class UserRoute extends StatelessWidget {
   @override
+
   Widget build(BuildContext context3) {
     return Scaffold(
       appBar: AppBar(
@@ -322,6 +324,16 @@ class UserRoute extends StatelessWidget {
           ]
       ),
       drawer: Text('drawer'), //левая навигация
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context3, new MaterialPageRoute(
+              builder: (context) =>
+              new AddPhotoRoute())
+          );
+        },
+        child: Icon(Icons.add_a_photo),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       body: Container(
         color: Colors.grey[200],
       child: Padding(
@@ -364,12 +376,7 @@ class UserRoute extends StatelessWidget {
               ],
             ),
           Expanded(
-            child: new GridView.count(
-                crossAxisCount: 2,
-                children: <Widget>[
-                  new MyBody()
-                ]
-            )
+            child: new MyBody()
             )
           ]
         ),
@@ -385,7 +392,11 @@ class PhotoList extends  State<MyBody> {
 
   @override
   Widget build(BuildContext context) {
-    return new ListView.builder(itemBuilder: (context3, i) {
+
+    return new GridView.builder(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4,crossAxisSpacing: 3.0, mainAxisSpacing: 1.0),
+        itemBuilder: (context3, i) {
       final int index = i ~/ 2;
 
 
@@ -398,8 +409,45 @@ class PhotoList extends  State<MyBody> {
         'https://pp.userapi.com/c633328/v633328661/23637/o0dWWCQLTcw.jpg'
       ]);
 
-      return new ListTile(title: new Image.network(_photo[index]));
+      return new GridTile(child: new Image.network(_photo[index]));
 
     });
+  }
+}
+
+class AddPhotoRoute extends StatelessWidget {
+  @override
+
+  Widget build(BuildContext context4) {
+    return Scaffold(
+      appBar: AppBar(
+          leading: Builder(
+            builder: (BuildContext context3) {
+              return IconButton(
+                icon: const Icon(Icons.close),
+                onPressed: () {
+                  Navigator.pop(context3);
+                },
+                tooltip: MaterialLocalizations.of(context3).openAppDrawerTooltip,
+              );
+            },
+          ),
+          title: Center(
+            child: Text("Добавить фото"),
+          ),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.info),
+              tooltip: 'Settings',
+              //onPressed: (),
+            ),
+          ]
+      ),
+      body: Builder(
+        builder: (context2) => Center(
+          child: Text('new photo')
+      )
+    )
+    );
   }
 }

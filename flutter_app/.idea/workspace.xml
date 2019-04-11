@@ -11,7 +11,6 @@
       <change beforePath="$PROJECT_DIR$/build/app.dill.track.dill" beforeDir="false" afterPath="$PROJECT_DIR$/build/app.dill.track.dill" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app.dill.track.dill.incremental.dill" beforeDir="false" afterPath="$PROJECT_DIR$/build/app.dill.track.dill.incremental.dill" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/flutter_assets/kernel_blob.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/flutter_assets/kernel_blob.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/snapshot_blob.bin.d" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/snapshot_blob.bin.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/snapshot_blob.bin.d.fingerprint" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/snapshot_blob.bin.d.fingerprint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/intermediates/incremental/packageDebug/tmp/debug/dex-renamer-state.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/incremental/packageDebug/tmp/debug/dex-renamer-state.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/intermediates/merged_assets/debug/mergeDebugAssets/out/flutter_assets/kernel_blob.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/merged_assets/debug/mergeDebugAssets/out/flutter_assets/kernel_blob.bin" afterDir="false" />
@@ -65,7 +64,7 @@
     <session id="-1852900893">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="10" />
+          <entry key="project.closed" value="11" />
           <entry key="project.open.time.13" value="1" />
           <entry key="project.open.time.15" value="1" />
           <entry key="project.open.time.16" value="1" />
@@ -73,7 +72,8 @@
           <entry key="project.open.time.20" value="4" />
           <entry key="project.open.time.24" value="1" />
           <entry key="project.open.time.25" value="2" />
-          <entry key="project.opened" value="11" />
+          <entry key="project.open.time.29" value="1" />
+          <entry key="project.opened" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -94,13 +94,13 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="dart" value="2486" />
+          <entry key="dart" value="3233" />
           <entry key="yaml" value="14" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Dart" value="2486" />
+          <entry key="Dart" value="3233" />
           <entry key="YAML" value="14" />
         </counts>
       </usages-collector>
@@ -111,12 +111,19 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="400" column="5" lean-forward="true" selection-start-line="400" selection-start-column="5" selection-end-line="400" selection-end-column="67" />
+            <state relative-caret-position="204">
+              <caret line="428" column="50" selection-start-line="428" selection-start-column="50" selection-end-line="428" selection-end-column="50" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
                 <element signature="e#572#1035#0" />
                 <element signature="e#1085#1539#0" />
+                <element signature="e#1600#1669#0" />
+                <element signature="e#1707#1758#0" />
+                <element signature="e#1774#2033#0" />
+                <element signature="e#2082#5624#0" />
+                <element signature="e#2374#3025#0" />
+                <element signature="e#5665#9503#0" />
+                <element signature="e#12295#13197#0" />
               </folding>
             </state>
           </provider>
@@ -142,9 +149,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="578" />
-    <option name="width" value="1349" />
-    <option name="height" value="1038" />
+    <option name="x" value="577" />
+    <option name="width" value="1350" />
+    <option name="height" value="1039" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -152,8 +159,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -186,6 +191,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -233,17 +240,17 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="463" y="0" width="1079" height="830" extended-state="0" />
+    <frame x="462" y="0" width="1080" height="831" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.22473013" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.22941177" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Run" order="0" visible="true" weight="0.32137734" />
+      <window_info active="true" anchor="bottom" id="Run" order="0" visible="true" weight="0.3209169" />
       <window_info anchor="bottom" id="TODO" order="1" />
       <window_info anchor="bottom" id="Debug" order="2" weight="0.39716312" />
       <window_info anchor="bottom" id="Terminal" order="3" />
@@ -289,12 +296,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="400" column="5" lean-forward="true" selection-start-line="400" selection-start-column="5" selection-end-line="400" selection-end-column="67" />
+        <state relative-caret-position="204">
+          <caret line="428" column="50" selection-start-line="428" selection-start-column="50" selection-end-line="428" selection-end-column="50" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
             <element signature="e#572#1035#0" />
             <element signature="e#1085#1539#0" />
+            <element signature="e#1600#1669#0" />
+            <element signature="e#1707#1758#0" />
+            <element signature="e#1774#2033#0" />
+            <element signature="e#2082#5624#0" />
+            <element signature="e#2374#3025#0" />
+            <element signature="e#5665#9503#0" />
+            <element signature="e#12295#13197#0" />
           </folding>
         </state>
       </provider>
