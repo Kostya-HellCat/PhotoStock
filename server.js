@@ -4,6 +4,16 @@ var fs               = require('fs');
 const express        = require('express');
 const app            = express();
 const formidable     = require('express-formidable');
+const pg        = require('pg');
+
+const config = {
+    user: 'postgres',
+    database: 'users',
+    password: '123',
+    port: 5432
+};
+
+const pool = new pg.Pool(config);
 
 app.use(formidable({
     encoding: 'utf-8',
@@ -13,6 +23,24 @@ app.use(formidable({
 
 app.listen(1337, function(){
     console.log('We are live on 1337');
+	
+/* pool.connect(function (err, client, done) {
+		   if (err) {
+			   console.log("Can not connect to the DB" + err);
+		   }
+		   client.query('SELECT * FROM GetAllStudent()', function (err, result) {
+				done();
+				if (err) {
+					console.log(err);
+					res.status(400).send(err);
+				}
+				res.status(200).send(result.rows);
+		   })
+	   }) 
+	   
+	   //Это пример запроса к бд
+	   */
+
   });
 
 app.use(function(req, res, next) {
@@ -21,7 +49,6 @@ app.use(function(req, res, next) {
   next();
 });
 
-
 // **********************************************************************************************************************
 // **********************************************Авторизация*************************************************************
 // **********************************************************************************************************************
@@ -29,6 +56,20 @@ app.use(function(req, res, next) {
 app.post('/auth', function(req, res) {
     
     console.log('Поступил запрос по адресу /auth');
+	
+	pool.connect(function (err, client, done) {
+		   if (err) {
+			   console.log("Can not connect to the DB" + err);
+		   }
+		   client.query('SELECT * FROM GetAllStudent()', function (err, result) {
+				done();
+				if (err) {
+					console.log(err);
+					res.status(400).send(err);
+				}
+				res.status(200).send(result.rows);
+		   })
+	   }) 
 
     var text = fs.readFileSync('database.json','UTF-8', function (err,data) {
         if (err) {
