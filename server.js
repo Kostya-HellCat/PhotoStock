@@ -4,16 +4,13 @@ var fs               = require('fs');
 const express        = require('express');
 const app            = express();
 const formidable     = require('express-formidable');
-const pg        = require('pg');
-
-const config = {
-    user: 'postgres',
-    database: 'users',
-    password: '123',
-    port: 5432
-};
-
-const pool = new pg.Pool(config);
+const { Pool } = require('pg')
+const pool = new Pool({
+  user: 'postgres',
+  host: 'localhost',
+  database: 'users',
+  password: '123',
+})
 
 app.use(formidable({
     encoding: 'utf-8',
@@ -21,27 +18,13 @@ app.use(formidable({
     multiples: true
 }));
 
+
+
 app.listen(1337, function(){
+	
     console.log('We are live on 1337');
 	
-/* pool.connect(function (err, client, done) {
-		   if (err) {
-			   console.log("Can not connect to the DB" + err);
-		   }
-		   client.query('SELECT * FROM GetAllStudent()', function (err, result) {
-				done();
-				if (err) {
-					console.log(err);
-					res.status(400).send(err);
-				}
-				res.status(200).send(result.rows);
-		   })
-	   }) 
-	   
-	   //Это пример запроса к бд
-	   */
-
-  });
+});
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -57,94 +40,70 @@ app.post('/auth', function(req, res) {
     
     console.log('Поступил запрос по адресу /auth');
 	
-	pool.connect(function (err, client, done) {
-		   if (err) {
-			   console.log("Can not connect to the DB" + err);
-		   }
-		   client.query('SELECT * FROM GetAllStudent()', function (err, result) {
-				done();
-				if (err) {
-					console.log(err);
-					res.status(400).send(err);
-				}
-				res.status(200).send(result.rows);
-		   })
-	   }) 
-
-    var text = fs.readFileSync('database.json','UTF-8', function (err,data) {
-        if (err) {
-            console.error(err);
-			console.log(data);
-        }
-        else {
-			console.log(data);
-            data.toString();
-        }
-    });
-
     var session = 0;
     var counter = 0;
     var id;
-    var pjson = JSON.parse(text);
-    var sjson;
     var user = {
         id : "",
-        surename : "",
-        name : "",
-        nickname : "",
+        firstname : "",
+        lastname : "",
         email : "",
-        password : "",
-        gender : "",
-        databirth : "",
-        nphoto : "",
-        rating : "",
-        phototype : "",
-        avatar : "",
+		phone : "",
+		phototype : "",
+        birthdate : "",
+        raiting : 0.00,
+        avatar_src:  "",
         photo : []
     };
 
     // Поиск пользователя в БД. Если есть, то ключ session = 1.
 
-    for (var key in pjson) {
-        if (req.fields.username == pjson[key].nickname) {
-            if (req.fields.password == pjson[key].password) {
-                session = 1;
-                id = key;
-            }
-            else session = 0;
-        }
-    }
-
-    if (session == 1) {
-        user.id = pjson[id].id;
-        user.surename = pjson[id].surename;
-        user.name = pjson[id].name;
-        user.nickname = pjson[id].nickname;
-        user.email = pjson[id].email;
-        user.password = pjson[id].password;
-        user.gender = pjson[id].gender;
-        user.databirth = pjson[id].databirth;
-        user.nphoto = pjson[id].nphoto;
-        user.rating = pjson[id].rating;
-        user.phototype = pjson[id].phototype;
-        user.avatar = pjson[id].avatar;
-
-        for (var key in pjson[id].photo) {
-            user.photo[key] = pjson[id].photo[key];
-        }
-
-        sjson = JSON.stringify(user);
-        console.log('Авторизирован пользователь '+user.nickname);
-        res.send(sjson);
-    }
-    else{
-        var err = '';
-        res.send(err);
-    }
-
-
-
+	pool.connect(function (err, client, done){
+			if (err) {
+		return console.error('error fetching client from pool', err)
+		}
+		
+		pool.query('SELECT * FROM userinfo WHERE login = \''+req.fields.username+'\'', [], function (err, result) {
+		done()
+		if (err) {
+		  return console.error('error happened during query', err)
+		  res.sendStatus(400); //Bad query
+		}
+		
+		if (result.rows[0] !== undefined){
+			if (result.rows[0].password == req.fields.password){
+							
+				session = 1;
+				user.id = result.rows[0].id;
+				user.firstname = result.rows[0].firstname;
+				user.lastname = result.rows[0].lastname;
+				user.email = result.rows[0].email;
+				user.phone = result.rows[0].phone;
+				user.phototype = result.rows[0].phototype;
+				user.birthdate = result.rows[0].birthdate;
+				user.raiting = result.rows[0].raiting;
+				user.avatar_src = result.rows[0].avatar_src;
+				
+				res.status(200).send(user); //Авторизация
+				
+				console.log('Авторизирован пользователь '+user.id);
+				
+			}
+			else {
+				//Неудачный пароль
+				res.sendStatus(401); // Unauthorized
+			}
+		}
+		else{
+			//Неудачный логин
+			res.sendStatus(401); // Unauthorized
+		}
+	
+		pool.close;
+		});
+	});
 });
+
 
 // **********************************************************************************************************************
 // ********************************************Регистрация***************************************************************

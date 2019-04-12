@@ -10,7 +10,7 @@ void main() {
       primaryColor: Colors.indigo[400],
     ),
     routes: {
-      '/': (BuildContext context) => UserRoute(), //AuthRoute()
+      '/': (BuildContext context) => AuthRoute(), //AuthRoute()
       '/reg': (context) => RegRoute(),
       '/user': (context) => UserRoute(),
       '/addphoto': (context) => AddPhotoRoute(),
@@ -49,7 +49,7 @@ class AuthNotFoundPopup extends StatelessWidget {
       content: SingleChildScrollView(
           child: ListBody(
               children: <Widget>[
-                Text('Пользователь с указанными данными не найден.'),
+                Text('Неверные логин или пароль.'),
               ]
           )),
       actions: [
@@ -100,26 +100,28 @@ class _AuthRouteState extends State<AuthRoute> {
   req_auth() async {
 
     var response = await http.post('http://10.0.2.2:1337/auth', body: {'username' : user.username, 'password' : user.password});
+    print(response.statusCode);
     if (response.statusCode == 200){
-      if (response.body == 'user_not_found'){
+      Navigator.push(context, PageRouteBuilder(
+          opaque: false,
+          pageBuilder: (BuildContext context, _, __) => UserRoute()
+      ));
+      }
+      else {
+      if (response.statusCode == 401){
         Navigator.push(context, PageRouteBuilder(
             opaque: false,
             pageBuilder: (BuildContext context, _, __) => AuthNotFoundPopup()
         ));
+
       }
-      else {
-          //Successful Request
+      else{
+        Navigator.push(context, PageRouteBuilder(
+            opaque: false,
+            pageBuilder: (BuildContext context, _, __) => AuthErrorPopup()
+        ));
       }
     }
-    else{
-      Navigator.push(context, PageRouteBuilder(
-          opaque: false,
-          pageBuilder: (BuildContext context, _, __) => AuthErrorPopup()
-      ));
-    }
-    //response.body
-
-
   }
 
   @override
