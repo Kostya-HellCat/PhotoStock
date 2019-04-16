@@ -118,8 +118,6 @@ class MyBody extends StatefulWidget {
 
 class UserData{
 
-  //Рабочий логин = 'Katy' пасс = '123'
-
   String username = '';
   String password = '';
   String email = '';
@@ -143,7 +141,8 @@ class _AuthRouteState extends State<AuthRoute> {
   req_auth() async {
 
     var response = await http.post('http://10.0.2.2:1337/auth', body: {'username' : user.username, 'password' : user.password});
-    print(response.statusCode);
+    
+    print(response.body);
     if (response.statusCode == 200){
       Navigator.push(context, PageRouteBuilder(
           opaque: false,
@@ -428,7 +427,12 @@ class UserRoute extends StatelessWidget {
           Row(
               children: <Widget>[
                 Expanded(
-                    child: Text('Raiting', textAlign: TextAlign.center)
+                    child: Column(
+                      children: <Widget>[
+                        Text('Raiting', textAlign: TextAlign.center),
+                        Text('', textAlign: TextAlign.center),
+                      ]
+                    )
                 ),
             CircleAvatar(
             backgroundImage: NetworkImage("https://pp.userapi.com/c633328/v633328661/23637/o0dWWCQLTcw.jpg"),

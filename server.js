@@ -151,6 +151,10 @@ app.post('/reg', function (req,res) {
 							  return console.error('error happened during query', err)
 							  res.sendStatus(400); //Bad query
 							}
+							
+							user.login = req.fields.username;
+							user.email = req.fields.email;
+							user.phone = req.fields.phone;
 							res.sendStatus(200);
 						});
 						
