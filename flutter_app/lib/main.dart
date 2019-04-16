@@ -10,15 +10,15 @@ void main() {
       primaryColor: Colors.indigo[400],
     ),
     routes: {
-      '/': (BuildContext context) => AuthRoute(), //AuthRoute()
-      '/reg': (context) => RegRoute(),
+      '/': (BuildContext context) => AuthRoute(), //Main route
+      '/reg': (BuildContext context) => RegRoute(),
       '/user': (context) => UserRoute(),
       '/addphoto': (context) => AddPhotoRoute(),
     },
   ));
 }
 
-// Popup Auth Error route
+// Popups
 
 class AuthErrorPopup extends StatelessWidget {
   @override
@@ -41,6 +41,27 @@ class AuthErrorPopup extends StatelessWidget {
   }
 }
 
+class RegErrorPopup extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text('Ошибка'),
+      content: SingleChildScrollView(
+          child: ListBody(
+              children: <Widget>[
+                Text('Регистрация не удалась. Пожалуйста, попробуйте позже.'),
+              ]
+          )),
+      actions: [
+        FlatButton(
+          onPressed: () {Navigator.pop(context);},
+          child: Text('Ок'),
+        ),
+      ],
+    );
+  }
+}
+
 class AuthNotFoundPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -50,6 +71,27 @@ class AuthNotFoundPopup extends StatelessWidget {
           child: ListBody(
               children: <Widget>[
                 Text('Неверные логин или пароль.'),
+              ]
+          )),
+      actions: [
+        FlatButton(
+          onPressed: () {Navigator.pop(context);},
+          child: Text('Ок'),
+        ),
+      ],
+    );
+  }
+}
+
+class RegLoginErrPopup extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text('Ошибка'),
+      content: SingleChildScrollView(
+          child: ListBody(
+              children: <Widget>[
+                Text('Пользователь с таким логином или email уже существует.'),
               ]
           )),
       actions: [
@@ -88,6 +130,7 @@ class UserData{
   String databirth = '';
   String raiting = '';
   String avatar = '';
+  String phone = '';
 }
 
 class _AuthRouteState extends State<AuthRoute> {
@@ -210,14 +253,44 @@ class _AuthRouteState extends State<AuthRoute> {
 
 class RegRoute extends StatelessWidget {
   final _formKey2 = GlobalKey<FormState>();
+  UserData user = new UserData();
+
+  req_reg(context) async {
+
+    var response = await http.post('http://10.0.2.2:1337/reg', body: {'username' : user.username, 'password' : user.password, 'email' : user.email, 'phone' : user.phone});
+    print(response.statusCode);
+    if (response.statusCode == 200){
+      Navigator.push(context, PageRouteBuilder(
+      opaque: false,
+      pageBuilder: (BuildContext context, _, __) => UserRoute()
+    ));
+
+    }
+    else {
+      if (response.statusCode == 401){
+        Navigator.push(context, PageRouteBuilder(
+            opaque: false,
+            pageBuilder: (BuildContext context, _, __) => RegLoginErrPopup()
+        ));
+
+      }
+      else{
+        Navigator.push(context, PageRouteBuilder(
+            opaque: false,
+            pageBuilder: (BuildContext context, _, __) => RegErrorPopup()
+        ));
+      }
+    }
+  }
+
   @override
-  Widget build(BuildContext context2) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Регистрация"),
       ),
       body: Builder(
-        builder: (context2) => Center(
+        builder: (context) => Center(
               child: Column(
                 children: <Widget>[
                   Form(
@@ -237,6 +310,7 @@ class RegRoute extends StatelessWidget {
                                   return 'Пожалуйста, введите логин';
                                 }
                               },
+                              onSaved: (val) => user.username = val,
                             ),
                             TextFormField(
                               decoration: const InputDecoration(
@@ -248,6 +322,7 @@ class RegRoute extends StatelessWidget {
                                   return 'Пожалуйста, введите E-mail';
                                 }
                               },
+                              onSaved: (val) => user.email = val,
                             ),
                             TextFormField(
                               decoration: const InputDecoration(
@@ -259,6 +334,7 @@ class RegRoute extends StatelessWidget {
                                   return 'Пожалуйста, введите пароль';
                                 }
                               },
+                              onSaved: (val) => user.password = val,
                             ),
                             TextFormField(
                               decoration: const InputDecoration(
@@ -270,6 +346,7 @@ class RegRoute extends StatelessWidget {
                                   return 'Пожалуйста, введите номер телефона';
                                 }
                               },
+                              onSaved: (val) => user.phone = val,
                             ),
                             Padding(
                               padding:
@@ -278,11 +355,12 @@ class RegRoute extends StatelessWidget {
                                 child: RaisedButton(
                                   onPressed: () {
                                     if (_formKey2.currentState.validate()) {
-                                      // If the form is valid, we want to show a Snackbar
-                                      Scaffold.of(context2).showSnackBar(
+                                      Scaffold.of(context).showSnackBar(
                                           SnackBar(
                                               content: Text('Обработка...')));
+                                              _formKey2.currentState.save();
                                     }
+                                    req_reg(context);
                                   },
                                   child: Text('Зарегистрироваться'),
                                 ),
@@ -321,7 +399,12 @@ class UserRoute extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.settings),
               tooltip: 'Settings',
-              //onPressed: (),
+              onPressed: (){
+                Navigator.push(context3, PageRouteBuilder(
+                    opaque: false,
+                    pageBuilder: (BuildContext context, _, __) => AuthRoute()
+                ));
+              },
             ),
           ]
       ),
@@ -446,7 +529,7 @@ class AddPhotoRoute extends StatelessWidget {
           ]
       ),
       body: Builder(
-        builder: (context2) => Center(
+        builder: (context) => Center(
           child: Text('new photo')
       )
     )

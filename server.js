@@ -109,59 +109,64 @@ app.post('/auth', function(req, res) {
 // ********************************************Регистрация***************************************************************
 // **********************************************************************************************************************
 
-app.post('/register', function (req,res) {
-    console.log('Поступил запрос по адресу /register');
+app.post('/reg', function (req,res) {
+    console.log('Поступил запрос по адресу /reg');
 
-  var text = fs.readFileSync('database.json','UTF-8', function (err,data) {
-    if (err) {
-      console.error(err);
-    }
-    else {
-      data.toString();
-    }
-  });
+    var user = {
+        id : "",
+        firstname : "",
+        lastname : "",
+        email : "",
+		phone : "",
+		phototype : "",
+        birthdate : "",
+        raiting : 0.00,
+        avatar_src:  "",
+        photo : []
+    };
 
-  var pjson = JSON.parse(text);
-
-  // Достаем ID последнего пользователя
-  var counter = 0;
-
-  for (var maxid in pjson) {
-  counter++;
-  }
-
-  // Создаем нового пользователя
-        pjson.push({});
-        pjson[counter].id = counter;
-        pjson[counter].surename = req.fields.lname;
-        pjson[counter].name = req.fields.fname;
-        pjson[counter].nickname = req.fields.nname;
-        pjson[counter].email = req.fields.mail;
-        pjson[counter].password = req.fields.pass;
-        pjson[counter].gender = req.fields.gen;
-        pjson[counter].databirth = req.fields.dat;
-        pjson[counter].nphoto = 0;
-        pjson[counter].rating = 0;
-        pjson[counter].phototype = req.fields.phototype;
-        pjson[counter].avatar = "photo/noavatar.png";
-        pjson[counter].photo = [];
-
-        var sjson= "";
-
-        sjson = JSON.stringify(pjson);
-    fs.unlink('database.json');
-    fs.appendFile('database.json', sjson, 'utf8', function (err,data) {
-        if (err) {
-            console.error(err);
-        }
-        else {
-            var ans = "Пользователь "+pjson[counter].nickname+" успешно зарегестрирован!";
-            res.send(ans);
-        }
-    });
-    console.log('Зарегестрирован новый пользователь');
-    console.log('id  | SureName  | FirstName  |  NickName');
-    console.log(pjson[counter].id + '  |  ' + pjson[counter].surename + '  |  ' + pjson[counter].name + '  |  ' + pjson[counter].nickname);
+	pool.connect(function (err, client, done){
+		if (err) {
+			return console.error('error fetching client from pool', err)
+		}
+		
+		pool.query('SELECT * FROM userinfo WHERE login = \''+req.fields.username+'\'', [], function (err, result) {
+			if (err) {
+			  return console.error('error happened during query', err)
+			  res.sendStatus(400); //Bad query
+			}
+			if (result.rows[0] === undefined){
+				
+				pool.query('SELECT * FROM userinfo WHERE email = \''+req.fields.email+'\'', [], function (err, result) {
+				
+					if (err) {
+					  return console.error('error happened during query', err)
+					  res.sendStatus(400); //Bad query
+					}
+					if (result.rows[0] === undefined){
+						
+						pool.query('INSERT INTO userinfo (login,password,email,phone) VALUES (\''+req.fields.username+'\',\''+req.fields.password+'\',\''+req.fields.email+'\',\''+req.fields.phone+'\')', [], function (err, result) {
+							done()
+							if (err) {
+							  return console.error('error happened during query', err)
+							  res.sendStatus(400); //Bad query
+							}
+							res.sendStatus(200);
+						});
+						
+						}
+					else {res.sendStatus(401)};
+					pool.close;
+				});
+			
+			}
+			else{res.sendStatus(401);console.log('Рега неуспешна2')}
+			pool.close;
+			
+		});	
+		
+		
+	});	
 });
 
 // **********************************************************************************************************************
