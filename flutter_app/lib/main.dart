@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'helpers/ensure_visible.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'dart:convert';
 
 void main() {
   runApp(MaterialApp(
@@ -129,6 +130,7 @@ class UserData{
   String raiting = '';
   String avatar = '';
   String phone = '';
+
 }
 
 class _AuthRouteState extends State<AuthRoute> {
@@ -141,8 +143,9 @@ class _AuthRouteState extends State<AuthRoute> {
   req_auth() async {
 
     var response = await http.post('http://10.0.2.2:1337/auth', body: {'username' : user.username, 'password' : user.password});
-    
+
     print(response.body);
+    user.fromJson(json.decode(response.body));
     if (response.statusCode == 200){
       Navigator.push(context, PageRouteBuilder(
           opaque: false,
