@@ -131,6 +131,24 @@ class UserData{
   String avatar = '';
   String phone = '';
 
+  UserData({this.username, this.password, this.email, this.id, this.surname,
+      this.name, this.gender, this.databirth, this.raiting, this.avatar,
+      this.phone});
+
+  UserData.fromJson(Map<String, dynamic> json):
+    username = json['username'],
+    password = json['password'],
+    email = json['email'],
+    id = json['id'], //TODO проверить, как правильно - так
+    //id = int.tryParse(json['id']), //TODO: или так?
+    surname = json['surname'],
+    name = json['name'],
+    gender = json['gender'],
+    databirth = json['databirth'],
+    raiting = json['raiting'],
+    avatar = json['avatar'],
+    phone = json['phone'];
+
 }
 
 class _AuthRouteState extends State<AuthRoute> {
@@ -139,13 +157,15 @@ class _AuthRouteState extends State<AuthRoute> {
   final _passwordFocusNode = FocusNode();
   UserData user = new UserData();
 
-
   req_auth() async {
 
     var response = await http.post('http://10.0.2.2:1337/auth', body: {'username' : user.username, 'password' : user.password});
 
     print(response.body);
-    user.fromJson(json.decode(response.body));
+    Map<String, dynamic> _jsonMap = json.decode(response.body);
+    print(_jsonMap);
+    user = UserData.fromJson(_jsonMap);
+    print(user);
     if (response.statusCode == 200){
       Navigator.push(context, PageRouteBuilder(
           opaque: false,
