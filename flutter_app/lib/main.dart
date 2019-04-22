@@ -119,35 +119,17 @@ class MyBody extends StatefulWidget {
 
 class UserData{
 
+  int id;
   String username = '';
   String password = '';
   String email = '';
-  int id;
   String surname = '';
   String name = '';
   String gender = '';
   String databirth = '';
-  String raiting = '';
+  int raiting;
   String avatar = '';
   String phone = '';
-
-  UserData({this.username, this.password, this.email, this.id, this.surname,
-      this.name, this.gender, this.databirth, this.raiting, this.avatar,
-      this.phone});
-
-  UserData.fromJson(Map<String, dynamic> json):
-    username = json['username'],
-    password = json['password'],
-    email = json['email'],
-    id = json['id'], //TODO проверить, как правильно - так
-    //id = int.tryParse(json['id']), //TODO: или так?
-    surname = json['surname'],
-    name = json['name'],
-    gender = json['gender'],
-    databirth = json['databirth'],
-    raiting = json['raiting'],
-    avatar = json['avatar'],
-    phone = json['phone'];
 
 }
 
@@ -161,12 +143,24 @@ class _AuthRouteState extends State<AuthRoute> {
 
     var response = await http.post('http://10.0.2.2:1337/auth', body: {'username' : user.username, 'password' : user.password});
 
-    print(response.body);
     Map<String, dynamic> _jsonMap = json.decode(response.body);
-    print(_jsonMap);
-    user = UserData.fromJson(_jsonMap);
-    print(user);
-    if (response.statusCode == 200){
+
+    user.id = _jsonMap['id'];
+    user.email = _jsonMap['email'];
+    user.surname = _jsonMap['lastname'];
+    user.name = _jsonMap['firstname'];
+    user.databirth = _jsonMap['birthdate'];
+    user.raiting = _jsonMap['raiting'];
+    user.avatar = _jsonMap['avatar_src'];
+    user.phone = _jsonMap['phone'];
+
+    print('user raiting = ${user.raiting}');
+    print('user raiting = ${user.raiting.toString()}');
+
+    print('user id = ${user.id}');
+    print('user avatar = ${user.avatar}');
+
+      if (response.statusCode == 200){
       Navigator.push(context, PageRouteBuilder(
           opaque: false,
           pageBuilder: (BuildContext context, _, __) => UserRoute()
@@ -400,17 +394,19 @@ class RegRoute extends StatelessWidget {
 }
 
 class UserRoute extends StatelessWidget {
+  UserData user = UserData();
+
   @override
 
-  Widget build(BuildContext context3) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
           leading: Builder(
-            builder: (BuildContext context3) {
+            builder: (BuildContext context) {
               return IconButton(
                 icon: const Icon(Icons.menu),
-                onPressed: () { Scaffold.of(context3).openDrawer(); },
-                tooltip: MaterialLocalizations.of(context3).openAppDrawerTooltip,
+                onPressed: () { Scaffold.of(context).openDrawer(); },
+                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
               );
             },
           ),
@@ -422,7 +418,7 @@ class UserRoute extends StatelessWidget {
               icon: Icon(Icons.settings),
               tooltip: 'Settings',
               onPressed: (){
-                Navigator.push(context3, PageRouteBuilder(
+                Navigator.push(context, PageRouteBuilder(
                     opaque: false,
                     pageBuilder: (BuildContext context, _, __) => AuthRoute()
                 ));
@@ -433,7 +429,7 @@ class UserRoute extends StatelessWidget {
       drawer: Text('drawer'), //левая навигация
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context3, new MaterialPageRoute(
+          Navigator.push(context, new MaterialPageRoute(
               builder: (context) =>
               new AddPhotoRoute())
           );
@@ -452,19 +448,24 @@ class UserRoute extends StatelessWidget {
                 Expanded(
                     child: Column(
                       children: <Widget>[
-                        Text('Raiting', textAlign: TextAlign.center),
-                        Text('', textAlign: TextAlign.center),
+                        Text('Рейтинг', textAlign: TextAlign.center),
+                        Text(user.raiting.toString(), textAlign: TextAlign.center),
                       ]
                     )
                 ),
             CircleAvatar(
-            backgroundImage: NetworkImage("https://pp.userapi.com/c633328/v633328661/23637/o0dWWCQLTcw.jpg"),
+            backgroundImage: NetworkImage(user.avatar),
                 radius: 40,/*image: DecorationImage(
                   image: AssetImage('avatars/avatar_1.jpg');
                 ),*/
                 ),
                 Expanded(
-                    child: Text('Type', textAlign: TextAlign.center)
+                    child: Column(
+                        children: <Widget>[
+                          Text('Тип фотографий', textAlign: TextAlign.center),
+                          Text('', textAlign: TextAlign.center),
+                        ]
+                    )
                 ),
               ],
             ),
@@ -512,8 +513,8 @@ class PhotoList extends  State<MyBody> {
       final int index = i ~/ 2;
 
 
-      print('index $index'); // Что бы понимать, что программа не сдохла
-      print('length ${_photo.length}'); // Что бы понимать, что программа не сдохла
+      //print('index $index'); // Что бы понимать, что программа не сдохла
+      //print('length ${_photo.length}'); // Что бы понимать, что программа не сдохла
 
       if (index >= _photo.length) _photo.addAll([
         'https://pp.userapi.com/c633328/v633328661/23637/o0dWWCQLTcw.jpg',
