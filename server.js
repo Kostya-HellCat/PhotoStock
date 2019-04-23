@@ -174,7 +174,7 @@ app.post('/reg', function (req,res) {
 });
 
 // **********************************************************************************************************************
-// **********************************************Добавлени фото**********************************************************
+// **********************************************Добавление фото*********************************************************
 // **********************************************************************************************************************
 
 app.post('/upload', function(req, res){
@@ -215,4 +215,45 @@ app.post('/upload', function(req, res){
         }
     });
     
+});
+
+// **********************************************************************************************************************
+// **********************************************Получение фото**********************************************************
+// **********************************************************************************************************************
+
+app.post('/getphoto', function(req, res) {
+    
+    console.log('Поступил запрос по адресу /get_photo');
+	
+    var user = {
+        id : "",
+        photo : ['']
+    };
+	var i=0;
+
+    // Поиск пользователя в БД. Если есть, то ключ session = 1.
+
+	pool.connect(function (err, client, done){
+			if (err) {
+		return console.error('error fetching client from pool', err)
+		}
+		
+		pool.query('SELECT * FROM photos WHERE author_id = \''+req.fields.user_id+'\'', [], function (err, result) {
+		
+		if (err) {
+		  return console.error('error happened during query', err)
+		  res.sendStatus(400); //Bad query
+		}
+		
+		while (result.rows[i] !== undefined){
+			user.photo[i]=result.rows[i].photo_src;
+			console.log(result.rows[i].photo_src);
+			user.photo[i] = result.rows[i].photo_src;
+			i++;
+		}
+		
+		res.status(200).send(user.photo);
+		pool.close;
+		});
+	});
 });

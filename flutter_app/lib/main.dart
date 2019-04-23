@@ -119,17 +119,18 @@ class MyBody extends StatefulWidget {
 
 class UserData{
 
-  int id;
-  String username = '';
-  String password = '';
-  String email = '';
-  String surname = '';
-  String name = '';
-  String gender = '';
-  String databirth = '';
-  int raiting;
-  String avatar = '';
-  String phone = '';
+  static int id;
+  static String username = '';
+  static String password = '';
+  static String email = '';
+  static String surname = '';
+  static String name = '';
+  static String gender = '';
+  static String databirth = '';
+  static int raiting;
+  static String avatar = '';
+  static String phone = '';
+  static var photo;
 
 }
 
@@ -137,28 +138,22 @@ class _AuthRouteState extends State<AuthRoute> {
   final _formKey = GlobalKey<FormState>();
   final _loginFocusNode = FocusNode();
   final _passwordFocusNode = FocusNode();
-  UserData user = new UserData();
+  //UserData user = new UserData();
 
   req_auth() async {
 
-    var response = await http.post('http://10.0.2.2:1337/auth', body: {'username' : user.username, 'password' : user.password});
+    var response = await http.post('http://10.0.2.2:1337/auth', body: {'username' : UserData.username, 'password' : UserData.password});
 
     Map<String, dynamic> _jsonMap = json.decode(response.body);
 
-    user.id = _jsonMap['id'];
-    user.email = _jsonMap['email'];
-    user.surname = _jsonMap['lastname'];
-    user.name = _jsonMap['firstname'];
-    user.databirth = _jsonMap['birthdate'];
-    user.raiting = _jsonMap['raiting'];
-    user.avatar = _jsonMap['avatar_src'];
-    user.phone = _jsonMap['phone'];
-
-    print('user raiting = ${user.raiting}');
-    print('user raiting = ${user.raiting.toString()}');
-
-    print('user id = ${user.id}');
-    print('user avatar = ${user.avatar}');
+    UserData.id = _jsonMap['id'];
+    UserData.email = _jsonMap['email'];
+    UserData.surname = _jsonMap['lastname'];
+    UserData.name = _jsonMap['firstname'];
+    UserData.databirth = _jsonMap['birthdate'];
+    UserData.raiting = _jsonMap['raiting'];
+    UserData.avatar = _jsonMap['avatar_src'];
+    UserData.phone = _jsonMap['phone'];
 
       if (response.statusCode == 200){
       Navigator.push(context, PageRouteBuilder(
@@ -211,7 +206,7 @@ class _AuthRouteState extends State<AuthRoute> {
                       return 'Пожалуйста, введите логин';
                     }
                   },
-                  onSaved: (val) => user.username = val,
+                  onSaved: (val) => UserData.username = val,
                 ),
               ),
               EnsureVisibleWhenFocused(
@@ -229,7 +224,7 @@ class _AuthRouteState extends State<AuthRoute> {
                       return 'Пожалуйста, введите пароль';
                     }
                   },
-                    onSaved: (val) => user.password = val,
+                    onSaved: (val) => UserData.password = val,
                 ),
               ),
               Padding(
@@ -269,12 +264,11 @@ class _AuthRouteState extends State<AuthRoute> {
 
 class RegRoute extends StatelessWidget {
   final _formKey2 = GlobalKey<FormState>();
-  UserData user = new UserData();
+  //UserData user = new UserData();
 
   req_reg(context) async {
 
-    var response = await http.post('http://10.0.2.2:1337/reg', body: {'username' : user.username, 'password' : user.password, 'email' : user.email, 'phone' : user.phone});
-    print(response.statusCode);
+    var response = await http.post('http://10.0.2.2:1337/reg', body: {'username' : UserData.username, 'password' : UserData.password, 'email' : UserData.email, 'phone' : UserData.phone});
     if (response.statusCode == 200){
       Navigator.push(context, PageRouteBuilder(
       opaque: false,
@@ -298,6 +292,8 @@ class RegRoute extends StatelessWidget {
       }
     }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -326,7 +322,7 @@ class RegRoute extends StatelessWidget {
                                   return 'Пожалуйста, введите логин';
                                 }
                               },
-                              onSaved: (val) => user.username = val,
+                              onSaved: (val) => UserData.username = val,
                             ),
                             TextFormField(
                               decoration: const InputDecoration(
@@ -338,7 +334,7 @@ class RegRoute extends StatelessWidget {
                                   return 'Пожалуйста, введите E-mail';
                                 }
                               },
-                              onSaved: (val) => user.email = val,
+                              onSaved: (val) => UserData.email = val,
                             ),
                             TextFormField(
                               decoration: const InputDecoration(
@@ -350,7 +346,7 @@ class RegRoute extends StatelessWidget {
                                   return 'Пожалуйста, введите пароль';
                                 }
                               },
-                              onSaved: (val) => user.password = val,
+                              onSaved: (val) => UserData.password = val,
                             ),
                             TextFormField(
                               decoration: const InputDecoration(
@@ -362,7 +358,7 @@ class RegRoute extends StatelessWidget {
                                   return 'Пожалуйста, введите номер телефона';
                                 }
                               },
-                              onSaved: (val) => user.phone = val,
+                              onSaved: (val) => UserData.phone = val,
                             ),
                             Padding(
                               padding:
@@ -394,7 +390,6 @@ class RegRoute extends StatelessWidget {
 }
 
 class UserRoute extends StatelessWidget {
-  UserData user = UserData();
 
   @override
 
@@ -448,13 +443,14 @@ class UserRoute extends StatelessWidget {
                 Expanded(
                     child: Column(
                       children: <Widget>[
+
                         Text('Рейтинг', textAlign: TextAlign.center),
-                        Text(user.raiting.toString(), textAlign: TextAlign.center),
+                        Text(UserData.raiting.toString(), textAlign: TextAlign.center),
                       ]
                     )
                 ),
             CircleAvatar(
-            backgroundImage: NetworkImage(user.avatar),
+            backgroundImage: NetworkImage(UserData.avatar),
                 radius: 40,/*image: DecorationImage(
                   image: AssetImage('avatars/avatar_1.jpg');
                 ),*/
@@ -503,24 +499,38 @@ class UserRoute extends StatelessWidget {
 class PhotoList extends  State<MyBody> {
   List<String> _photo = [];
 
+  get_photo(context) async {
+    var response = await http.post('http://10.0.2.2:1337/getphoto', body: {'user_id' : UserData.id.toString()});
+
+    if (response.statusCode == 200){
+      UserData.photo = json.decode(response.body);
+      print(UserData.photo);
+      print(UserData.photo[0]);
+    }
+    else {
+      //error or bad photoKaty
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
+    get_photo(context);
 
     return new GridView.builder(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4,crossAxisSpacing: 3.0, mainAxisSpacing: 1.0),
-        itemBuilder: (context3, i) {
-      final int index = i ~/ 2;
+        itemBuilder: (context, i) {
+          final int index = i ~/ 2;
+          int j = 0;
+          var cat_url='https://pp.userapi.com/c633328/v633328661/23637/o0dWWCQLTcw.jpg';
+          //print('index $index'); // Что бы понимать, что программа не сдохла
+          //print('length ${_photo.length}'); // Что бы понимать, что программа не сдохла
 
 
-      //print('index $index'); // Что бы понимать, что программа не сдохла
-      //print('length ${_photo.length}'); // Что бы понимать, что программа не сдохла
-
-      if (index >= _photo.length) _photo.addAll([
-        'https://pp.userapi.com/c633328/v633328661/23637/o0dWWCQLTcw.jpg',
-        'https://pp.userapi.com/c633328/v633328661/23637/o0dWWCQLTcw.jpg',
-        'https://pp.userapi.com/c633328/v633328661/23637/o0dWWCQLTcw.jpg'
-      ]);
+          if (index >= _photo.length) {
+            _photo.addAll([UserData.photo[j]]);
+          }
 
       return new GridTile(child: new Image.network(_photo[index]));
 
@@ -531,17 +541,17 @@ class PhotoList extends  State<MyBody> {
 class AddPhotoRoute extends StatelessWidget {
   @override
 
-  Widget build(BuildContext context4) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
           leading: Builder(
-            builder: (BuildContext context3) {
+            builder: (BuildContext context) {
               return IconButton(
                 icon: const Icon(Icons.close),
                 onPressed: () {
-                  Navigator.pop(context3);
+                  Navigator.pop(context);
                 },
-                tooltip: MaterialLocalizations.of(context3).openAppDrawerTooltip,
+                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
               );
             },
           ),
