@@ -140,6 +140,17 @@ class _AuthRouteState extends State<AuthRoute> {
   final _passwordFocusNode = FocusNode();
   //UserData user = new UserData();
 
+  get_photo(context) async {
+    var response = await http.post('http://10.0.2.2:1337/getphoto', body: {'user_id' : UserData.id.toString()});
+
+    if (response.statusCode == 200){
+      UserData.photo = json.decode(response.body);
+    }
+    else {
+      //error or bad photoKaty
+    }
+  }
+
   req_auth() async {
 
     var response = await http.post('http://10.0.2.2:1337/auth', body: {'username' : UserData.username, 'password' : UserData.password});
@@ -156,10 +167,13 @@ class _AuthRouteState extends State<AuthRoute> {
     UserData.phone = _jsonMap['phone'];
 
       if (response.statusCode == 200){
-      Navigator.push(context, PageRouteBuilder(
-          opaque: false,
-          pageBuilder: (BuildContext context, _, __) => UserRoute()
-      ));
+        get_photo(context).then(
+            Navigator.push(context, PageRouteBuilder(
+                opaque: false,
+                pageBuilder: (BuildContext context, _, __) => UserRoute()
+            ))
+        );
+        return UserData.photo;
       }
       else {
       if (response.statusCode == 401){
@@ -497,44 +511,17 @@ class UserRoute extends StatelessWidget {
 }
 
 class PhotoList extends  State<MyBody> {
-  List<String> _photo = [];
-
-  get_photo(context) async {
-    var response = await http.post('http://10.0.2.2:1337/getphoto', body: {'user_id' : UserData.id.toString()});
-
-    if (response.statusCode == 200){
-      UserData.photo = json.decode(response.body);
-      print(UserData.photo);
-      print(UserData.photo[0]);
-    }
-    else {
-      //error or bad photoKaty
-    }
-  }
-
+  int j = -1;
 
   @override
   Widget build(BuildContext context) {
-    get_photo(context);
-
     return new GridView.builder(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4,crossAxisSpacing: 3.0, mainAxisSpacing: 1.0),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 4, crossAxisSpacing: 3.0, mainAxisSpacing: 1.0),
         itemBuilder: (context, i) {
-          final int index = i ~/ 2;
-          int j = 0;
-          var cat_url='https://pp.userapi.com/c633328/v633328661/23637/o0dWWCQLTcw.jpg';
-          //print('index $index'); // Что бы понимать, что программа не сдохла
-          //print('length ${_photo.length}'); // Что бы понимать, что программа не сдохла
-
-
-          if (index >= _photo.length) {
-            _photo.addAll([UserData.photo[j]]);
-          }
-
-      return new GridTile(child: new Image.network(_photo[index]));
-
-    });
+          return new GridTile(child: new Image.network(UserData.photo[0]));
+        });
   }
 }
 
