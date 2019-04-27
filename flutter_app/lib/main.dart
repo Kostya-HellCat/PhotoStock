@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'helpers/ensure_visible.dart';
@@ -153,7 +155,7 @@ class _AuthRouteState extends State<AuthRoute> {
 
     if (response.statusCode == 200){
       UserData.photo = json.decode(response.body);
-      UserData.updatedUserData();
+      UserData.updated();
     }
     else {
       //error or bad photoKaty
@@ -523,7 +525,7 @@ class PhotoList extends State<MyBody> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<UserState>(
+    return StreamBuilder<UserDataState>(
         stream: UserData.userDataState,
         initialData: UserDataState(),
         builder: (context, snapshot) {
@@ -546,7 +548,8 @@ class PhotoList extends State<MyBody> {
                 child: Text('Loading...') // CircularProgressIndicator
               )
           );
-        };
+        }
+    );
   }
 }
 
