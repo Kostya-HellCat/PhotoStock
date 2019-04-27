@@ -132,7 +132,15 @@ class UserData{
   static String phone = '';
   static var photo;
 
+  static final _changedStreamController = StreamController<UserDataState>();
+  static Stream<UserDataState> get userDataState => _changedStreamController.stream;
+  static void updated() {
+    //notify listeners with new state
+    _changedStreamController.sink.add(UserDataState());
+  }
 }
+
+class UserDataState {}
 
 class _AuthRouteState extends State<AuthRoute> {
   final _formKey = GlobalKey<FormState>();
@@ -145,6 +153,7 @@ class _AuthRouteState extends State<AuthRoute> {
 
     if (response.statusCode == 200){
       UserData.photo = json.decode(response.body);
+      UserData.updatedUserData();
     }
     else {
       //error or bad photoKaty
@@ -514,26 +523,30 @@ class PhotoList extends State<MyBody> {
 
   @override
   Widget build(BuildContext context) {
-    if (UserData.photo != null) {
-      int j = -1;
-      return new GridView.builder(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4, crossAxisSpacing: 3.0, mainAxisSpacing: 1.0,),
-          itemCount: UserData.photo.length,
-          itemBuilder: (context, i) {
-            j++;
-            return new GridTile(child: new Image.network(UserData.photo[j]));
-          });
-    }
-    else // Тут надо как-то релогнуть предыдущий виджет
-      return new Container(
-          width: 0.0,
-          height: 0.0,
-          child: Center(
-           child: Text('Loading...') // CircularProgressIndicator
-          )
-      );
+    return StreamBuilder<UserState>(
+        stream: UserData.userDataState,
+        initialData: UserDataState(),
+        builder: (context, snapshot) {
+          //snapshot - UserState, we may get some data from it
+          if (UserData.photo != null) {
+            int j = -1;
+            return new GridView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 4, crossAxisSpacing: 3.0, mainAxisSpacing: 1.0,),
+              itemCount: UserData.photo.length,
+              itemBuilder: (context, i) {
+                j++;
+                return new GridTile(child: new Image.network(UserData.photo[j]));
+              });
+          } else return new Container(
+              width: 0.0,
+              height: 0.0,
+              child: Center(
+                child: Text('Loading...') // CircularProgressIndicator
+              )
+          );
+        };
   }
 }
 
