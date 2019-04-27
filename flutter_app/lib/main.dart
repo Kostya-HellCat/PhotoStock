@@ -167,7 +167,7 @@ class _AuthRouteState extends State<AuthRoute> {
     UserData.phone = _jsonMap['phone'];
 
       if (response.statusCode == 200){
-        get_photo(context).then(
+        get_photo(context).whenComplete(
             Navigator.push(context, PageRouteBuilder(
                 opaque: false,
                 pageBuilder: (BuildContext context, _, __) => UserRoute()
@@ -510,18 +510,30 @@ class UserRoute extends StatelessWidget {
   }
 }
 
-class PhotoList extends  State<MyBody> {
-  int j = -1;
+class PhotoList extends State<MyBody> {
 
   @override
   Widget build(BuildContext context) {
-    return new GridView.builder(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4, crossAxisSpacing: 3.0, mainAxisSpacing: 1.0),
-        itemBuilder: (context, i) {
-          return new GridTile(child: new Image.network(UserData.photo[0]));
-        });
+    if (UserData.photo != null) {
+      int j = -1;
+      return new GridView.builder(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 4, crossAxisSpacing: 3.0, mainAxisSpacing: 1.0,),
+          itemCount: UserData.photo.length,
+          itemBuilder: (context, i) {
+            j++;
+            return new GridTile(child: new Image.network(UserData.photo[j]));
+          });
+    }
+    else // Тут надо как-то релогнуть предыдущий виджет
+      return new Container(
+          width: 0.0,
+          height: 0.0,
+          child: Center(
+           child: Text('Loading...') // CircularProgressIndicator
+          )
+      );
   }
 }
 
