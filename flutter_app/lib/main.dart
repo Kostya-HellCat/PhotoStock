@@ -166,40 +166,31 @@ class _AuthRouteState extends State<AuthRoute> {
 
     var response = await http.post('http://10.0.2.2:1337/auth', body: {'username' : UserData.username, 'password' : UserData.password});
 
-    Map<String, dynamic> _jsonMap = json.decode(response.body);
+    if (response.statusCode == 200){
+      Map<String, dynamic> _jsonMap = json.decode(response.body);
 
-    UserData.id = _jsonMap['id'];
-    UserData.email = _jsonMap['email'];
-    UserData.surname = _jsonMap['lastname'];
-    UserData.name = _jsonMap['firstname'];
-    UserData.databirth = _jsonMap['birthdate'];
-    UserData.raiting = _jsonMap['raiting'];
-    UserData.avatar = _jsonMap['avatar_src'];
-    UserData.phone = _jsonMap['phone'];
+      UserData.id = _jsonMap['id'];
+      UserData.email = _jsonMap['email'];
+      UserData.surname = _jsonMap['lastname'];
+      UserData.name = _jsonMap['firstname'];
+      UserData.databirth = _jsonMap['birthdate'];
+      UserData.raiting = _jsonMap['raiting'];
+      UserData.avatar = _jsonMap['avatar_src'];
+      UserData.phone = _jsonMap['phone'];
 
-      if (response.statusCode == 200){
-        get_photo(context).whenComplete(
-            Navigator.push(context, PageRouteBuilder(
-                opaque: false,
-                pageBuilder: (BuildContext context, _, __) => UserRoute()
-            ))
-        );
-        return UserData.photo;
-      }
-      else {
-      if (response.statusCode == 401){
+      get_photo(context).whenComplete(
+          Navigator.push(context, PageRouteBuilder(
+              opaque: false,
+              pageBuilder: (BuildContext context, _, __) => UserRoute()
+          ))
+      );
+      return UserData.photo;
+    }
+    else {
         Navigator.push(context, PageRouteBuilder(
             opaque: false,
             pageBuilder: (BuildContext context, _, __) => AuthNotFoundPopup()
         ));
-
-      }
-      else{
-        Navigator.push(context, PageRouteBuilder(
-            opaque: false,
-            pageBuilder: (BuildContext context, _, __) => AuthErrorPopup()
-        ));
-      }
     }
   }
 

@@ -1,4 +1,4 @@
-#Sat Apr 27 16:39:48 MSK 2019
+#Sun Apr 28 13:02:19 MSK 2019
 base.0=C\:\\Users\\HellCat\\Documents\\GitHub\\PhotoStock\\flutter_app\\build\\app\\intermediates\\transforms\\dexMerger\\debug\\0
 path.0=classes.dex
 renamed.0=classes.dex
