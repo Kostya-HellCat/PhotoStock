@@ -5,6 +5,8 @@ import 'package:http/http.dart' as http;
 import 'helpers/ensure_visible.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'dart:convert';
+import 'package:css_colors/css_colors.dart';
+import 'package:image_picker/image_picker.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -547,6 +549,17 @@ class PhotoList extends State<MyBody> {
 class AddPhotoRoute extends StatelessWidget {
   final _formKey3 = GlobalKey<FormState>();
 
+//  File _image;
+//
+//  Future getImage() async {
+//    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+//
+//    setState(() {
+//      _image = image;
+//    });
+//  }
+
+
   @override
 
   Widget build(BuildContext context) {
@@ -620,6 +633,18 @@ class AddPhotoRoute extends StatelessWidget {
                             //onSaved: (val) => UserData.username = val,
                           ),
                           //FileFormField(),
+                          Padding(
+                            padding:
+                            const EdgeInsets.symmetric(vertical: 16.0),
+                            child: Center(
+                              child: RaisedButton(
+                                onPressed: () {
+                                 //загрузить фото
+                                },
+                                child: Text('Выбрать фото'),
+                              ),
+                            ),
+                          ),
                           Padding(
                             padding:
                             const EdgeInsets.symmetric(vertical: 16.0),
