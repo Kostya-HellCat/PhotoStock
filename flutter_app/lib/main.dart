@@ -134,7 +134,7 @@ class UserData{
   static String phone = '';
   static var photo;
 
-  static final _changedStreamController = StreamController<UserDataState>();
+  static final _changedStreamController = StreamController<UserDataState>.broadcast();
   static Stream<UserDataState> get userDataState => _changedStreamController.stream;
   static void updated() {
     //notify listeners with new state
