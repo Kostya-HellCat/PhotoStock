@@ -9,7 +9,6 @@
       <change beforePath="$PROJECT_DIR$/android/.gradle/4.10.2/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/4.10.2/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app.dill.track.dill" beforeDir="false" afterPath="$PROJECT_DIR$/build/app.dill.track.dill" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app.dill.track.dill.incremental.dill" beforeDir="false" afterPath="$PROJECT_DIR$/build/app.dill.track.dill.incremental.dill" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/flutter_assets/kernel_blob.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/flutter_assets/kernel_blob.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/snapshot_blob.bin.d.fingerprint" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/snapshot_blob.bin.d.fingerprint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/intermediates/incremental/packageDebug/tmp/debug/dex-renamer-state.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/incremental/packageDebug/tmp/debug/dex-renamer-state.txt" afterDir="false" />
@@ -30,16 +29,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="163">
-              <caret line="528" column="55" lean-forward="true" selection-start-line="528" selection-start-column="55" selection-end-line="528" selection-end-column="55" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-                <element signature="e#220#582#0" />
-                <element signature="e#1149#1612#0" />
-                <element signature="e#1662#2098#0" />
-                <element signature="e#2147#2611#0" />
-                <element signature="e#2672#2741#0" />
-              </folding>
+            <state relative-caret-position="334">
+              <caret line="188" column="10" selection-start-line="188" selection-start-column="10" selection-end-line="188" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -65,6 +56,8 @@
       <find>.then</find>
       <find>req</find>
       <find>then</find>
+      <find>State</find>
+      <find>Stream</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -79,9 +72,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="551" />
-    <option name="width" value="1375" />
-    <option name="height" value="1039" />
+    <option name="x" value="521" />
+    <option name="width" value="1404" />
+    <option name="height" value="1040" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -135,7 +128,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="441" y="0" width="1100" height="831" extended-state="0" />
+    <frame x="417" y="0" width="1123" height="832" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" weight="0.25" />
@@ -146,7 +139,7 @@
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info id="Resources Explorer" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="0" sideWeight="0.49903846" visible="true" weight="0.34620887" />
+      <window_info active="true" anchor="bottom" id="Run" order="0" sideWeight="0.49903846" visible="true" weight="0.34571427" />
       <window_info anchor="bottom" id="TODO" order="1" />
       <window_info anchor="bottom" id="Debug" order="2" weight="0.47496423" />
       <window_info anchor="bottom" id="Terminal" order="3" />
@@ -162,17 +155,6 @@
       <window_info anchor="right" id="Palette&#9;" order="4" />
       <window_info anchor="right" id="Assistant" order="5" weight="0.33679244" />
     </layout>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/main.dart</url>
-          <line>154</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.12.0+1/lib/http.dart" />
@@ -292,16 +274,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="528" column="55" lean-forward="true" selection-start-line="528" selection-start-column="55" selection-end-line="528" selection-end-column="55" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-            <element signature="e#220#582#0" />
-            <element signature="e#1149#1612#0" />
-            <element signature="e#1662#2098#0" />
-            <element signature="e#2147#2611#0" />
-            <element signature="e#2672#2741#0" />
-          </folding>
+        <state relative-caret-position="334">
+          <caret line="188" column="10" selection-start-line="188" selection-start-column="10" selection-end-line="188" selection-end-column="10" />
         </state>
       </provider>
     </entry>
