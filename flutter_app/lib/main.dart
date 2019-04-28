@@ -545,38 +545,104 @@ class PhotoList extends State<MyBody> {
 }
 
 class AddPhotoRoute extends StatelessWidget {
+  final _formKey3 = GlobalKey<FormState>();
+
   @override
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          leading: Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                icon: const Icon(Icons.close),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-              );
-            },
-          ),
-          title: Center(
-            child: Text("Добавить фото"),
-          ),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.info),
-              tooltip: 'Settings',
-              //onPressed: (),
+        appBar: AppBar(
+            leading: Builder(
+              builder: (BuildContext context) {
+                return IconButton(
+                  icon: const Icon(Icons.close),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+                );
+              },
             ),
-          ]
-      ),
-      body: Builder(
-        builder: (context) => Center(
-          child: Text('new photo')
-      )
-    )
+            title: Center(
+              child: Text("Добавить фото"),
+            ),
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.info),
+                tooltip: 'Settings',
+                //onPressed: (),
+              ),
+            ]
+        ),
+        body: Builder(
+            builder: (context) => Center(
+                child:  Form(
+                    key: _formKey3,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 50, right: 50, top: 50),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          TextFormField(
+                            decoration: const InputDecoration(
+                              icon: Icon(Icons.mode_edit),
+                              labelText: 'Название',
+                            ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Пожалуйста, введите название';
+                              }
+                            },
+                            //onSaved: (val) => UserData.username = val,
+                          ),
+                          TextFormField(
+                            decoration: const InputDecoration(
+                              icon: Icon(Icons.monetization_on),
+                              labelText: 'Цена',
+                            ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Пожалуйста, введите цену';
+                              }
+                            },
+                            //onSaved: (val) => UserData.username = val,
+                          ),
+                          TextFormField(
+                            decoration: const InputDecoration(
+                              icon: Icon(Icons.vpn_key),
+                              labelText: 'Ключевые слова',
+                            ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Пожалуйста, введите ключевые слова через зяпятую';
+                              }
+                            },
+                            //onSaved: (val) => UserData.username = val,
+                          ),
+                          //FileFormField(),
+                          Padding(
+                            padding:
+                            const EdgeInsets.symmetric(vertical: 16.0),
+                            child: Center(
+                              child: RaisedButton(
+                                onPressed: () {
+                                  if (_formKey3.currentState.validate()) {
+                                    Scaffold.of(context).showSnackBar(
+                                        SnackBar(
+                                            content: Text('Обработка...')));
+                                    _formKey3.currentState.save();
+                                  }
+                                  //req_reg(context);
+                                },
+                                child: Text('Загрузить'),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ))
+            )
+        )
     );
   }
 }
