@@ -7,6 +7,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'dart:convert';
 import 'package:css_colors/css_colors.dart';
 import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 void main() {
   runApp(MaterialApp(
@@ -18,7 +19,7 @@ void main() {
       '/': (BuildContext context) => AuthRoute(), //Main route
       '/reg': (BuildContext context) => RegRoute(),
       '/user': (context) => UserRoute(),
-      '/addphoto': (context) => AddPhotoRoute(),
+      '/addphoto': (context) => PhotoRoute(),
     },
   ));
 }
@@ -444,7 +445,7 @@ class UserRoute extends StatelessWidget {
         onPressed: () {
           Navigator.push(context, new MaterialPageRoute(
               builder: (context) =>
-              new AddPhotoRoute())
+              new PhotoRoute())
           );
         },
         child: Icon(Icons.add_a_photo),
@@ -546,24 +547,33 @@ class PhotoList extends State<MyBody> {
   }
 }
 
-class AddPhotoRoute extends StatelessWidget {
+class PhotoRoute extends StatefulWidget {
+  @override
+  PhotoRouteState createState() => PhotoRouteState();
+}
+
+class PhotoRouteState extends State<PhotoRoute> {
   final _formKey3 = GlobalKey<FormState>();
 
-//  File _image;
-//
-//  Future getImage() async {
-//    var image = await ImagePicker.pickImage(source: ImageSource.camera);
-//
-//    setState(() {
-//      _image = image;
-//    });
-//  }
+  File _image;
 
+  Future getImage() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      _image = image;
+    });
+  }
 
   @override
 
   Widget build(BuildContext context) {
     return Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: getImage,
+          tooltip: 'Pick Image',
+          child: Icon(Icons.image),
+        ),
         appBar: AppBar(
             leading: Builder(
               builder: (BuildContext context) {
@@ -633,17 +643,10 @@ class AddPhotoRoute extends StatelessWidget {
                             //onSaved: (val) => UserData.username = val,
                           ),
                           //FileFormField(),
-                          Padding(
-                            padding:
-                            const EdgeInsets.symmetric(vertical: 16.0),
-                            child: Center(
-                              child: RaisedButton(
-                                onPressed: () {
-                                 //загрузить фото
-                                },
-                                child: Text('Выбрать фото'),
-                              ),
-                            ),
+                          Center(
+                            child: _image == null
+                                ? Text('Фото не выбрано')
+                                : Image.file(_image), // если надо отображать фото
                           ),
                           Padding(
                             padding:

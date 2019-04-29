@@ -6,7 +6,33 @@ INJECTED from C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\android\a
 INJECTED from C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\android\app\src\main\AndroidManifest.xml:1:1-34:12
 MERGED from C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\android\app\src\main\AndroidManifest.xml:1:1-34:12
 MERGED from [:sqflite] C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\build\sqflite\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:2:1-7:12
+MERGED from [:image_picker] C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\build\image_picker\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:2:1-22:12
 MERGED from [:path_provider] C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\build\path_provider\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\legacy-support-v4-1.0.0.aar\566fa4c7bdf4ef4563692f5c3448e58e\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.media:media:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\media-1.0.0.aar\3cbd7d86639c514f88154e9e12028347\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.fragment:fragment:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\fragment-1.0.0.aar\4157eeeb2b4c22be01d7038502c47594\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\legacy-support-core-ui-1.0.0.aar\77f28dc8f0ddbcd0e09866d831c805d0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\legacy-support-core-utils-1.0.0.aar\0cb8976e154e658387ac3b5614accbe7\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\loader-1.0.0.aar\5bb5c5b7e337687d347dab8bb76ea42e\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\viewpager-1.0.0.aar\eeff4641f13f6d5da95044505d31c6cf\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\coordinatorlayout-1.0.0.aar\fe72994f487c3bb2dbdb3cfc4e9c9b6c\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\drawerlayout-1.0.0.aar\1d96351ee6514901f80dfc1d190f2bae\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\slidingpanelayout-1.0.0.aar\9ca56462bd782f9e699a66e736a2bb4a\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\customview-1.0.0.aar\8e4659b539e2a3f40f461d0be077c2dc\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\swiperefreshlayout-1.0.0.aar\10c391fa99d2fb47265aaa92518e5428\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\asynclayoutinflater-1.0.0.aar\4fca37960a68fcf38d79d60ae85ba267\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\core-1.0.0.aar\96edd8736f7d59bd3274e99ea018901f\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\versionedparcelable-1.0.0.aar\e445bf98b1f2730800d463b149d92f7a\AndroidManifest.xml:17:1-25:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\lifecycle-runtime-2.0.0.aar\8affac8558f482089b8143112ea81a8b\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\documentfile-1.0.0.aar\5bdb62954773c35be566f942722e1a97\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\localbroadcastmanager-1.0.0.aar\c5639b15698f1da87a1e6544f987cfc2\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\print-1.0.0.aar\cc58170e0a240ed82feda23f2c3a7540\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\interpolator-1.0.0.aar\580d30c0f843ad31de84dfbb637e4bd6\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\cursoradapter-1.0.0.aar\41564660ca2551756739099755482f2b\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\lifecycle-viewmodel-2.0.0.aar\202aa2ac37ac9f6678305362588d5e1b\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\lifecycle-livedata-2.0.0.aar\e34832fcff8de202275b65f03141faf1\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\lifecycle-livedata-core-2.0.0.aar\08e6833ce21a8b704f37295bb3125f75\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\core-runtime-2.0.0.aar\41d48be2de42e8a7cca7d8adffea78c1\AndroidManifest.xml:17:1-22:12
 INJECTED from C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\android\app\src\debug\AndroidManifest.xml:1:1-7:12
 INJECTED from C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\android\app\src\debug\AndroidManifest.xml:1:1-7:12
 INJECTED from C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\android\app\src\debug\AndroidManifest.xml:1:1-7:12
@@ -32,6 +58,14 @@ MERGED from C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\android\app
 		ADDED from C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\android\app\src\main\AndroidManifest.xml:3:22-64
 application
 ADDED from C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\android\app\src\main\AndroidManifest.xml:10:5-33:19
+MERGED from [:image_picker] C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\build\image_picker\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:10:5-20:19
+MERGED from [:image_picker] C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\build\image_picker\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:10:5-20:19
+MERGED from [androidx.core:core:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\core-1.0.0.aar\96edd8736f7d59bd3274e99ea018901f\AndroidManifest.xml:22:5-89
+MERGED from [androidx.core:core:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\core-1.0.0.aar\96edd8736f7d59bd3274e99ea018901f\AndroidManifest.xml:22:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\versionedparcelable-1.0.0.aar\e445bf98b1f2730800d463b149d92f7a\AndroidManifest.xml:22:5-23:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\versionedparcelable-1.0.0.aar\e445bf98b1f2730800d463b149d92f7a\AndroidManifest.xml:22:5-23:19
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\core-1.0.0.aar\96edd8736f7d59bd3274e99ea018901f\AndroidManifest.xml:22:18-86
 	android:label
 		ADDED from C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\android\app\src\main\AndroidManifest.xml:12:9-36
 	android:icon
@@ -74,8 +108,60 @@ INJECTED from C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\android\a
 INJECTED from C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\android\app\src\main\AndroidManifest.xml
 MERGED from [:sqflite] C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\build\sqflite\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:5:5-44
 MERGED from [:sqflite] C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\build\sqflite\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:5:5-44
+MERGED from [:image_picker] C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\build\image_picker\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:5:5-44
+MERGED from [:image_picker] C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\build\image_picker\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:5:5-44
 MERGED from [:path_provider] C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\build\path_provider\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:5:5-44
 MERGED from [:path_provider] C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\build\path_provider\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:5:5-44
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\legacy-support-v4-1.0.0.aar\566fa4c7bdf4ef4563692f5c3448e58e\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\legacy-support-v4-1.0.0.aar\566fa4c7bdf4ef4563692f5c3448e58e\AndroidManifest.xml:20:5-44
+MERGED from [androidx.media:media:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\media-1.0.0.aar\3cbd7d86639c514f88154e9e12028347\AndroidManifest.xml:20:5-44
+MERGED from [androidx.media:media:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\media-1.0.0.aar\3cbd7d86639c514f88154e9e12028347\AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\fragment-1.0.0.aar\4157eeeb2b4c22be01d7038502c47594\AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\fragment-1.0.0.aar\4157eeeb2b4c22be01d7038502c47594\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\legacy-support-core-ui-1.0.0.aar\77f28dc8f0ddbcd0e09866d831c805d0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\legacy-support-core-ui-1.0.0.aar\77f28dc8f0ddbcd0e09866d831c805d0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\legacy-support-core-utils-1.0.0.aar\0cb8976e154e658387ac3b5614accbe7\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\legacy-support-core-utils-1.0.0.aar\0cb8976e154e658387ac3b5614accbe7\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\loader-1.0.0.aar\5bb5c5b7e337687d347dab8bb76ea42e\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\loader-1.0.0.aar\5bb5c5b7e337687d347dab8bb76ea42e\AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\viewpager-1.0.0.aar\eeff4641f13f6d5da95044505d31c6cf\AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\viewpager-1.0.0.aar\eeff4641f13f6d5da95044505d31c6cf\AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\coordinatorlayout-1.0.0.aar\fe72994f487c3bb2dbdb3cfc4e9c9b6c\AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\coordinatorlayout-1.0.0.aar\fe72994f487c3bb2dbdb3cfc4e9c9b6c\AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\drawerlayout-1.0.0.aar\1d96351ee6514901f80dfc1d190f2bae\AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\drawerlayout-1.0.0.aar\1d96351ee6514901f80dfc1d190f2bae\AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\slidingpanelayout-1.0.0.aar\9ca56462bd782f9e699a66e736a2bb4a\AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\slidingpanelayout-1.0.0.aar\9ca56462bd782f9e699a66e736a2bb4a\AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\customview-1.0.0.aar\8e4659b539e2a3f40f461d0be077c2dc\AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\customview-1.0.0.aar\8e4659b539e2a3f40f461d0be077c2dc\AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\swiperefreshlayout-1.0.0.aar\10c391fa99d2fb47265aaa92518e5428\AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\swiperefreshlayout-1.0.0.aar\10c391fa99d2fb47265aaa92518e5428\AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\asynclayoutinflater-1.0.0.aar\4fca37960a68fcf38d79d60ae85ba267\AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\asynclayoutinflater-1.0.0.aar\4fca37960a68fcf38d79d60ae85ba267\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\core-1.0.0.aar\96edd8736f7d59bd3274e99ea018901f\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\core-1.0.0.aar\96edd8736f7d59bd3274e99ea018901f\AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\versionedparcelable-1.0.0.aar\e445bf98b1f2730800d463b149d92f7a\AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\versionedparcelable-1.0.0.aar\e445bf98b1f2730800d463b149d92f7a\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\lifecycle-runtime-2.0.0.aar\8affac8558f482089b8143112ea81a8b\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\lifecycle-runtime-2.0.0.aar\8affac8558f482089b8143112ea81a8b\AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\documentfile-1.0.0.aar\5bdb62954773c35be566f942722e1a97\AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\documentfile-1.0.0.aar\5bdb62954773c35be566f942722e1a97\AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\localbroadcastmanager-1.0.0.aar\c5639b15698f1da87a1e6544f987cfc2\AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\localbroadcastmanager-1.0.0.aar\c5639b15698f1da87a1e6544f987cfc2\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\print-1.0.0.aar\cc58170e0a240ed82feda23f2c3a7540\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\print-1.0.0.aar\cc58170e0a240ed82feda23f2c3a7540\AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\interpolator-1.0.0.aar\580d30c0f843ad31de84dfbb637e4bd6\AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\interpolator-1.0.0.aar\580d30c0f843ad31de84dfbb637e4bd6\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\cursoradapter-1.0.0.aar\41564660ca2551756739099755482f2b\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\cursoradapter-1.0.0.aar\41564660ca2551756739099755482f2b\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\lifecycle-viewmodel-2.0.0.aar\202aa2ac37ac9f6678305362588d5e1b\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\lifecycle-viewmodel-2.0.0.aar\202aa2ac37ac9f6678305362588d5e1b\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\lifecycle-livedata-2.0.0.aar\e34832fcff8de202275b65f03141faf1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\lifecycle-livedata-2.0.0.aar\e34832fcff8de202275b65f03141faf1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\lifecycle-livedata-core-2.0.0.aar\08e6833ce21a8b704f37295bb3125f75\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\lifecycle-livedata-core-2.0.0.aar\08e6833ce21a8b704f37295bb3125f75\AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\core-runtime-2.0.0.aar\41d48be2de42e8a7cca7d8adffea78c1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\HellCat\.gradle\caches\transforms-1\files-1.1\core-runtime-2.0.0.aar\41d48be2de42e8a7cca7d8adffea78c1\AndroidManifest.xml:20:5-44
 INJECTED from C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\android\app\src\debug\AndroidManifest.xml
 INJECTED from C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\android\app\src\debug\AndroidManifest.xml
 	android:targetSdkVersion
@@ -84,3 +170,27 @@ INJECTED from C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\android\a
 	android:minSdkVersion
 		INJECTED from C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\android\app\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\android\app\src\debug\AndroidManifest.xml
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from [:image_picker] C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\build\image_picker\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:7:5-80
+	android:name
+		ADDED from [:image_picker] C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\build\image_picker\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:7:22-77
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from [:image_picker] C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\build\image_picker\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:8:5-81
+	android:name
+		ADDED from [:image_picker] C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\build\image_picker\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:8:22-78
+provider#io.flutter.plugins.imagepicker.ImagePickerFileProvider
+ADDED from [:image_picker] C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\build\image_picker\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:11:9-19:20
+	android:grantUriPermissions
+		ADDED from [:image_picker] C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\build\image_picker\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:15:13-47
+	android:authorities
+		ADDED from [:image_picker] C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\build\image_picker\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:13:13-74
+	android:exported
+		ADDED from [:image_picker] C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\build\image_picker\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:14:13-37
+	android:name
+		ADDED from [:image_picker] C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\build\image_picker\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:12:13-82
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from [:image_picker] C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\build\image_picker\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:16:13-18:75
+	android:resource
+		ADDED from [:image_picker] C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\build\image_picker\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:18:17-72
+	android:name
+		ADDED from [:image_picker] C:\Users\HellCat\Documents\GitHub\PhotoStock\flutter_app\build\image_picker\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:17:17-67
