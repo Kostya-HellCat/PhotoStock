@@ -4,6 +4,7 @@ var fs               = require('fs');
 const express        = require('express');
 const app            = express();
 const formidable     = require('express-formidable');
+const shortid = require('shortid');
 const { Pool } = require('pg')
 const pool = new Pool({
   user: 'postgres',
@@ -21,9 +22,7 @@ app.use(formidable({
 
 
 app.listen(1337, function(){
-	
     console.log('We are live on 1337');
-	
 });
 
 app.use(function(req, res, next) {
@@ -164,7 +163,7 @@ app.post('/reg', function (req,res) {
 				});
 			
 			}
-			else{res.sendStatus(401);console.log('Рега неуспешна2')}
+			else{res.sendStatus(401);}
 			pool.close;
 			
 		});	
@@ -177,45 +176,47 @@ app.post('/reg', function (req,res) {
 // **********************************************Добавление фото*********************************************************
 // **********************************************************************************************************************
 
+function getExtension(filename) {
+    var i = filename.lastIndexOf('.');
+    return (i < 0) ? '' : filename.substr(i);
+}
+
 app.post('/upload', function(req, res){
     console.log('Поступил запрос по адресу /upload');
 
-    var text = fs.readFileSync('database.json','UTF-8', function (err,data) {
-        if (err) {
-            console.error(err);
-        }
-        else {
-            data.toString();
-        }
-    });
 
-    var pjson = JSON.parse(text);
-
-    // Ищем пользвателя по ID и записываем новое фото после имеющихся
-
-    var counter = 0;
-
-    for (var maxphoto in pjson[req.fields.id].photo) {
-        counter++;
-    }
-    maxphoto = maxphoto+1;
-    
-    pjson[req.fields.id].photo.push(req.files.upfile.path);
-
-    var sjson= "";
-    sjson = JSON.stringify(pjson);
-    fs.unlink('database.json');
-    fs.appendFile('database.json', sjson, 'utf8', function (err,data) {
-        if (err) {
-            console.error(err);
-        }
-        else {
-            var ans = "Фоторгафия успешно добавлена! Что бы увидеть фото перезайдите в ваш аккаунт.";
-            res.send(ans);
-        }
-    });
-    
+  var name = req.fields.name
+  var hashname = 'img/'+shortid.generate()+shortid.generate()+getExtension(name);
+  var img = req.fields.image;
+  var realFile = Buffer.from(img,"base64");
+  fs.writeFile(hashname, realFile, function(err) {
+      if(err)
+         console.log(err);
+   });
+   
+   var user = {
+        id : "",
+        photo : ['']
+    };
+	
+	pool.connect(function (err, client, done){
+			if (err) {
+		return console.error('error fetching client from pool', err)
+		}
+		
+		pool.query('INSERT INTO photos (author_id,photo_name,photo_price,photo_src) VALUES (\''+req.fields.user_id+'\',\''+req.fields.photo_name+'\',\''+req.fields.photo_cost+'\',\''+hashname+'\')', [], function (err, result) {
+		if (err) {
+		  return console.error('error happened during query', err)
+		  res.sendStatus(400); //Bad query
+		}
+		else{
+		res.status(200).send('OK');
+		}
+	pool.close;
+		});
+	});
 });
+	
 
 // **********************************************************************************************************************
 // **********************************************Получение фото**********************************************************
@@ -223,7 +224,7 @@ app.post('/upload', function(req, res){
 
 app.post('/getphoto', function(req, res) {
     
-    console.log('Поступил запрос по адресу /get_photo');
+    console.log('Поступил запрос по адресу /getphoto');
 	
     var user = {
         id : "",
@@ -247,7 +248,7 @@ app.post('/getphoto', function(req, res) {
 		
 		while (result.rows[i] !== undefined){
 			user.photo[i]=result.rows[i].photo_src;
-			console.log(result.rows[i].photo_src);
+
 			user.photo[i] = result.rows[i].photo_src;
 			i++;
 		}

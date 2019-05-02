@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'helpers/ensure_visible.dart';
@@ -110,6 +109,48 @@ class RegLoginErrPopup extends StatelessWidget {
   }
 }
 
+class PhotoErrorPopup extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text('Ошибка'),
+      content: SingleChildScrollView(
+          child: ListBody(
+              children: <Widget>[
+                Text('Фотография не выбрана.'),
+              ]
+          )),
+      actions: [
+        FlatButton(
+          onPressed: () {Navigator.pop(context);},
+          child: Text('Ок'),
+        ),
+      ],
+    );
+  }
+}
+
+class PhotoOkPopup extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text('Успех'),
+      content: SingleChildScrollView(
+          child: ListBody(
+              children: <Widget>[
+                Text('Фотография успешно загружена'),
+              ]
+          )),
+      actions: [
+        FlatButton(
+          onPressed: () {Navigator.pop(context);Navigator.pop(context);},
+          child: Text('Ок'),
+        ),
+      ],
+    );
+  }
+}
+
 // MAIN AUTH ROUTE
 
 class AuthRoute extends StatefulWidget {
@@ -154,7 +195,7 @@ class _AuthRouteState extends State<AuthRoute> {
   //UserData user = new UserData();
 
   get_photo(context) async {
-    var response = await http.post('http://10.0.2.2:1337/getphoto', body: {'user_id' : UserData.id.toString()});
+    var response = await http.post('http://192.168.1.37:1337/getphoto', body: {'user_id' : UserData.id.toString()});
 
     if (response.statusCode == 200){
       UserData.photo = json.decode(response.body);
@@ -167,7 +208,7 @@ class _AuthRouteState extends State<AuthRoute> {
 
   req_auth() async {
 
-    var response = await http.post('http://10.0.2.2:1337/auth', body: {'username' : UserData.username, 'password' : UserData.password});
+    var response = await http.post('http://192.168.1.37:1337/auth', body: {'username' : UserData.username, 'password' : UserData.password});
 
     if (response.statusCode == 200){
       Map<String, dynamic> _jsonMap = json.decode(response.body);
@@ -287,7 +328,7 @@ class RegRoute extends StatelessWidget {
 
   req_reg(context) async {
 
-    var response = await http.post('http://10.0.2.2:1337/reg', body: {'username' : UserData.username, 'password' : UserData.password, 'email' : UserData.email, 'phone' : UserData.phone});
+    var response = await http.post('http://192.168.1.37:1337/reg', body: {'username' : UserData.username, 'password' : UserData.password, 'email' : UserData.email, 'phone' : UserData.phone});
     if (response.statusCode == 200){
       Navigator.push(context, PageRouteBuilder(
       opaque: false,
@@ -554,6 +595,11 @@ class PhotoRoute extends StatefulWidget {
 
 class PhotoRouteState extends State<PhotoRoute> {
   final _formKey3 = GlobalKey<FormState>();
+  Map photo = {
+    'name' : '',
+    'cost' : 0,
+    'tags' : ''
+  };
 
   File _image;
 
@@ -562,6 +608,26 @@ class PhotoRouteState extends State<PhotoRoute> {
 
     setState(() {
       _image = image;
+      print(_image);
+    });
+  }
+
+  void _upload() {
+    if (_image == null) return;
+    String base64Image = base64Encode(_image.readAsBytesSync());
+    String fileName = _image.path.split("/").last;
+
+    http.post('http://192.168.1.37:1337/upload', body: {
+      'user_id': UserData.id,
+      'image': base64Image,
+      'name': fileName,
+      'photo_name': photo['name'],
+      'photo_cost': photo['cost'],
+      'photo_tags': photo['tags'],
+    }).then((res) {
+      return res.statusCode;
+    }).catchError((err) {
+      print(err);
     });
   }
 
@@ -616,7 +682,7 @@ class PhotoRouteState extends State<PhotoRoute> {
                                 return 'Пожалуйста, введите название';
                               }
                             },
-                            //onSaved: (val) => UserData.username = val,
+                            onSaved: (val) => photo['name'] = val,
                           ),
                           TextFormField(
                             decoration: const InputDecoration(
@@ -628,7 +694,7 @@ class PhotoRouteState extends State<PhotoRoute> {
                                 return 'Пожалуйста, введите цену';
                               }
                             },
-                            //onSaved: (val) => UserData.username = val,
+                            onSaved: (val) => photo['cost'] = val,
                           ),
                           TextFormField(
                             decoration: const InputDecoration(
@@ -640,12 +706,14 @@ class PhotoRouteState extends State<PhotoRoute> {
                                 return 'Пожалуйста, введите ключевые слова через зяпятую';
                               }
                             },
-                            //onSaved: (val) => UserData.username = val,
+                            onSaved: (val) => photo['tags'] = val,
                           ),
                           //FileFormField(),
-                          Center(
+                          Padding(
+                            padding:
+                            const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
                             child: _image == null
-                                ? Text('Фото не выбрано')
+                                ? Text('Выберите фотографию')
                                 : Image.file(_image), // если надо отображать фото
                           ),
                           Padding(
@@ -655,10 +723,23 @@ class PhotoRouteState extends State<PhotoRoute> {
                               child: RaisedButton(
                                 onPressed: () {
                                   if (_formKey3.currentState.validate()) {
-                                    Scaffold.of(context).showSnackBar(
-                                        SnackBar(
-                                            content: Text('Обработка...')));
-                                    _formKey3.currentState.save();
+                                    if (_image != null) {
+                                      Scaffold.of(context).showSnackBar(
+                                          SnackBar(
+                                              content: Text('Обработка...')));
+                                      _formKey3.currentState.save();
+                                      _upload();
+                                          Navigator.push(context, PageRouteBuilder(
+                                              opaque: false,
+                                              pageBuilder: (BuildContext context, _, __) => PhotoOkPopup()
+                                          ));
+                                    }
+                                    else{
+                                      Navigator.push(context, PageRouteBuilder(
+                                          opaque: false,
+                                          pageBuilder: (BuildContext context, _, __) => PhotoErrorPopup()
+                                      ));
+                                    }
                                   }
                                   //req_reg(context);
                                 },
