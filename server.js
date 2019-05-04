@@ -52,7 +52,7 @@ app.post('/auth', function(req, res) {
         birthdate : "",
         raiting : 0.00,
         avatar_src:  "",
-        photo : []
+        photo_count: 0,
     };
 
     // Поиск пользователя в БД. Если есть, то ключ session = 1.
@@ -63,7 +63,6 @@ app.post('/auth', function(req, res) {
 		}
 		
 		pool.query('SELECT * FROM userinfo WHERE login = \''+req.fields.username+'\'', [], function (err, result) {
-		done()
 		if (err) {
 		  return console.error('error happened during query', err)
 		  res.sendStatus(400); //Bad query
@@ -72,7 +71,6 @@ app.post('/auth', function(req, res) {
 		if (result.rows[0] !== undefined){
 			if (result.rows[0].password == req.fields.password){
 							
-				session = 1;
 				user.id = result.rows[0].id;
 				user.firstname = result.rows[0].firstname;
 				user.lastname = result.rows[0].lastname;
@@ -83,16 +81,25 @@ app.post('/auth', function(req, res) {
 				user.raiting = result.rows[0].raiting;
 				user.avatar_src = result.rows[0].avatar_src;
 				
-				res.status(200).send(user); //Авторизация
+				pool.query('SELECT COUNT(*) FROM photos WHERE author_id = '+user.id, [], function (err, result) {
+					done()
+					if (err) {
+						return console.error('error happened during query', err)
+						res.sendStatus(400); //Bad query
+					}
+			
+					if (result.rows[0] !== undefined){
+						user.photo_count = result.rows[0].count;
+						res.status(200).send(user); //Авторизация
+						console.log('Авторизирован пользователь '+user.id);	
+					}
 				
-				console.log('Авторизирован пользователь '+user.id);
-				
+				});
 			}
 			else {
 				//Неудачный пароль
 				res.sendStatus(401); // Unauthorized
-			}
-		}
+		}}
 		else{
 			//Неудачный логин
 			res.sendStatus(401); // Unauthorized
@@ -186,25 +193,23 @@ app.post('/upload', function(req, res){
 
 
   var name = req.fields.name
-  var hashname = 'img/'+shortid.generate()+shortid.generate()+getExtension(name);
+  var hashname = 'img\\'+shortid.generate()+shortid.generate()+getExtension(name);
   var img = req.fields.image;
   var realFile = Buffer.from(img,"base64");
+  
   fs.writeFile(hashname, realFile, function(err) {
       if(err)
          console.log(err);
    });
-   
-   var user = {
-        id : "",
-        photo : ['']
-    };
 	
 	pool.connect(function (err, client, done){
 			if (err) {
 		return console.error('error fetching client from pool', err)
 		}
 		
-		pool.query('INSERT INTO photos (author_id,photo_name,photo_price,photo_src) VALUES (\''+req.fields.user_id+'\',\''+req.fields.photo_name+'\',\''+req.fields.photo_cost+'\',\''+hashname+'\')', [], function (err, result) {
+		console.log(req.fields.user_id, req.fields.photo_name, req.fields.photo_cost, hashname);
+		
+		pool.query('INSERT INTO photos (author_id,photo_name,photo_price,photo_src) VALUES ('+req.fields.user_id+',\''+req.fields.photo_name+'\',\''+req.fields.photo_cost+'\',\''+hashname+'\')', [], function (err, result) {
 		if (err) {
 		  return console.error('error happened during query', err)
 		  res.sendStatus(400); //Bad query
@@ -226,17 +231,11 @@ app.post('/getphoto', function(req, res) {
     
     console.log('Поступил запрос по адресу /getphoto');
 	
-    var user = {
-        id : "",
-        photo : ['']
-    };
-	var i=0;
-
-    // Поиск пользователя в БД. Если есть, то ключ session = 1.
+    var user_photo = '';
 
 	pool.connect(function (err, client, done){
-			if (err) {
-		return console.error('error fetching client from pool', err)
+		if (err) {
+			return console.error('error fetching client from pool', err)
 		}
 		
 		pool.query('SELECT * FROM photos WHERE author_id = \''+req.fields.user_id+'\'', [], function (err, result) {
@@ -246,14 +245,17 @@ app.post('/getphoto', function(req, res) {
 		  res.sendStatus(400); //Bad query
 		}
 		
-		while (result.rows[i] !== undefined){
-			user.photo[i]=result.rows[i].photo_src;
+		if (result.rows[req.fields.photo_count] !== undefined){
+			photo_adress = __dirname +'\\' + result.rows[req.fields.photo_count].photo_src;
+			
+			var file = fs.readFileSync(photo_adress, 'base64');
 
-			user.photo[i] = result.rows[i].photo_src;
-			i++;
+			res.status(200).send(file); // Set disposition and send it.
+		}
+		else{
+			res.send(401); // Empty result
 		}
 		
-		res.status(200).send(user.photo);
 		pool.close;
 		});
 	});

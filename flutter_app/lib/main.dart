@@ -177,6 +177,7 @@ class UserData{
   static String avatar = '';
   static String phone = '';
   static var photo;
+  static int photoCount;
 
   static final _changedStreamController = StreamController<UserDataState>.broadcast();
   static Stream<UserDataState> get userDataState => _changedStreamController.stream;
@@ -192,19 +193,6 @@ class _AuthRouteState extends State<AuthRoute> {
   final _formKey = GlobalKey<FormState>();
   final _loginFocusNode = FocusNode();
   final _passwordFocusNode = FocusNode();
-  //UserData user = new UserData();
-
-  get_photo(context) async {
-    var response = await http.post('http://192.168.1.37:1337/getphoto', body: {'user_id' : UserData.id.toString()});
-
-    if (response.statusCode == 200){
-      UserData.photo = json.decode(response.body);
-      UserData.updated();
-    }
-    else {
-      //error or bad photoKaty
-    }
-  }
 
   req_auth() async {
 
@@ -221,14 +209,14 @@ class _AuthRouteState extends State<AuthRoute> {
       UserData.raiting = _jsonMap['raiting'];
       UserData.avatar = _jsonMap['avatar_src'];
       UserData.phone = _jsonMap['phone'];
+      UserData.photoCount = int.parse(_jsonMap['photo_count']);
 
-      get_photo(context).whenComplete(
-          Navigator.push(context, PageRouteBuilder(
-              opaque: false,
-              pageBuilder: (BuildContext context, _, __) => UserRoute()
-          ))
-      );
-      return UserData.photo;
+      Navigator.push(context, PageRouteBuilder(
+          opaque: false,
+          pageBuilder: (BuildContext context, _, __) => UserRoute()
+      ));
+
+      return UserData;
     }
     else {
         Navigator.push(context, PageRouteBuilder(
@@ -558,6 +546,20 @@ class UserRoute extends StatelessWidget {
 
 class PhotoList extends State<MyBody> {
 
+  int i = 0;
+  bool isLoading = false;
+
+  get_photo(context,int photoCount) async {
+    var response = await http.post('http://192.168.1.37:1337/getphoto', body: {'user_id' : UserData.id.toString(), 'photo_count' : photoCount.toString()});
+    if (response.statusCode == 200){
+      UserData.photo = base64Decode(response.body);
+      UserData.updated();
+    }
+    else {
+      print('Что-то пошло не так! Фото не загружены');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<UserDataState>(
@@ -565,24 +567,33 @@ class PhotoList extends State<MyBody> {
         initialData: UserDataState(),
         builder: (context, snapshot) {
           //snapshot - UserState, we may get some data from it
+
           if (UserData.photo != null) {
-            int j = -1;
+            if (UserData.photoCount == 0){
+              return new Container(
+                width: 0.0,
+                height: 0.0,
+              );
+            }else{
             return new GridView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4, crossAxisSpacing: 3.0, mainAxisSpacing: 1.0,),
-              itemCount: UserData.photo.length,
-              itemBuilder: (context, i) {
-                j++;
-                return new GridTile(child: new Image.network(UserData.photo[j]));
-              });
-          } else return new Container(
-              width: 0.0,
-              height: 0.0,
-              child: Center(
-                child: Text('Loading...') // CircularProgressIndicator
-              )
-          );
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 4, crossAxisSpacing: 3.0, mainAxisSpacing: 1.0,),
+                itemCount: UserData.photoCount,
+                itemBuilder: (context, i) {
+                  get_photo(context, 0);
+                  return new GridTile(child: new Image.memory(UserData.photo));
+                });
+            }
+          } else {
+              return new Container(
+                  width: 50.0,
+                  height: 50.0,
+                    child: new Center(
+                      child: new CircularProgressIndicator()
+                    )
+              );
+            }
         }
     );
   }
@@ -595,9 +606,9 @@ class PhotoRoute extends StatefulWidget {
 
 class PhotoRouteState extends State<PhotoRoute> {
   final _formKey3 = GlobalKey<FormState>();
-  Map photo = {
+  var photo = {
     'name' : '',
-    'cost' : 0,
+    'cost' : '',
     'tags' : ''
   };
 
@@ -608,7 +619,6 @@ class PhotoRouteState extends State<PhotoRoute> {
 
     setState(() {
       _image = image;
-      print(_image);
     });
   }
 
@@ -618,7 +628,7 @@ class PhotoRouteState extends State<PhotoRoute> {
     String fileName = _image.path.split("/").last;
 
     http.post('http://192.168.1.37:1337/upload', body: {
-      'user_id': UserData.id,
+      'user_id': UserData.id.toString(),
       'image': base64Image,
       'name': fileName,
       'photo_name': photo['name'],
