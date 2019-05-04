@@ -176,7 +176,7 @@ class UserData{
   static int raiting;
   static String avatar = '';
   static String phone = '';
-  static var photo;
+  static var photo = [];
   static int photoCount;
 
   static final _changedStreamController = StreamController<UserDataState>.broadcast();
@@ -210,6 +210,7 @@ class _AuthRouteState extends State<AuthRoute> {
       UserData.avatar = _jsonMap['avatar_src'];
       UserData.phone = _jsonMap['phone'];
       UserData.photoCount = int.parse(_jsonMap['photo_count']);
+      UserData.photo = _jsonMap['photo'];
 
       Navigator.push(context, PageRouteBuilder(
           opaque: false,
@@ -546,20 +547,6 @@ class UserRoute extends StatelessWidget {
 
 class PhotoList extends State<MyBody> {
 
-  int i = 0;
-  bool isLoading = false;
-
-  get_photo(context,int photoCount) async {
-    var response = await http.post('http://192.168.1.37:1337/getphoto', body: {'user_id' : UserData.id.toString(), 'photo_count' : photoCount.toString()});
-    if (response.statusCode == 200){
-      UserData.photo = base64Decode(response.body);
-      UserData.updated();
-    }
-    else {
-      print('Что-то пошло не так! Фото не загружены');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<UserDataState>(
@@ -568,7 +555,7 @@ class PhotoList extends State<MyBody> {
         builder: (context, snapshot) {
           //snapshot - UserState, we may get some data from it
 
-          if (UserData.photo != null) {
+          if (UserData.photoCount != null) {
             if (UserData.photoCount == 0){
               return new Container(
                 width: 0.0,
@@ -581,8 +568,8 @@ class PhotoList extends State<MyBody> {
                 crossAxisCount: 4, crossAxisSpacing: 3.0, mainAxisSpacing: 1.0,),
                 itemCount: UserData.photoCount,
                 itemBuilder: (context, i) {
-                  get_photo(context, 0);
-                  return new GridTile(child: new Image.memory(UserData.photo));
+                  //i++;
+                  return new GridTile(child: new Image.network('http://192.168.1.37:1337/img?photo_name=${UserData.photo[i]}'));
                 });
             }
           } else {

@@ -42,6 +42,7 @@ app.post('/auth', function(req, res) {
     var session = 0;
     var counter = 0;
     var id;
+	var i = 0;
     var user = {
         id : "",
         firstname : "",
@@ -53,6 +54,7 @@ app.post('/auth', function(req, res) {
         raiting : 0.00,
         avatar_src:  "",
         photo_count: 0,
+		photo : []
     };
 
     // Поиск пользователя в БД. Если есть, то ключ session = 1.
@@ -82,16 +84,26 @@ app.post('/auth', function(req, res) {
 				user.avatar_src = result.rows[0].avatar_src;
 				
 				pool.query('SELECT COUNT(*) FROM photos WHERE author_id = '+user.id, [], function (err, result) {
-					done()
+					
 					if (err) {
 						return console.error('error happened during query', err)
 						res.sendStatus(400); //Bad query
 					}
 			
-					if (result.rows[0] !== undefined){
+					if (result.rows[0].count != undefined){
 						user.photo_count = result.rows[0].count;
+
+						pool.query('SELECT * FROM photos WHERE author_id = \''+user.id+'\'', [], function (err, result) {
+						
+						while (result.rows[i] != undefined){
+							user.photo[i] = result.rows[i].photo_src;
+							i++;
+						}
+						
 						res.status(200).send(user); //Авторизация
 						console.log('Авторизирован пользователь '+user.id);	
+						});
+		
 					}
 				
 				});
@@ -193,7 +205,7 @@ app.post('/upload', function(req, res){
 
 
   var name = req.fields.name
-  var hashname = 'img\\'+shortid.generate()+shortid.generate()+getExtension(name);
+  var hashname = shortid.generate()+shortid.generate()+getExtension(name);
   var img = req.fields.image;
   var realFile = Buffer.from(img,"base64");
   
@@ -227,36 +239,14 @@ app.post('/upload', function(req, res){
 // **********************************************Получение фото**********************************************************
 // **********************************************************************************************************************
 
-app.post('/getphoto', function(req, res) {
-    
-    console.log('Поступил запрос по адресу /getphoto');
-	
-    var user_photo = '';
+app.get('/img', function(req, res) {
+	console.log('Поступил запрос по адресу /img');
 
-	pool.connect(function (err, client, done){
-		if (err) {
-			return console.error('error fetching client from pool', err)
-		}
-		
-		pool.query('SELECT * FROM photos WHERE author_id = \''+req.fields.user_id+'\'', [], function (err, result) {
-		
-		if (err) {
-		  return console.error('error happened during query', err)
-		  res.sendStatus(400); //Bad query
-		}
-		
-		if (result.rows[req.fields.photo_count] !== undefined){
-			photo_adress = __dirname +'\\' + result.rows[req.fields.photo_count].photo_src;
-			
-			var file = fs.readFileSync(photo_adress, 'base64');
-
-			res.status(200).send(file); // Set disposition and send it.
+console.log(req.query);
+	if (req.query.photo_name !== undefined){
+			res.sendFile(__dirname+'\\img\\'+req.query.photo_name);
 		}
 		else{
-			res.send(401); // Empty result
+			res.sendStatus(401); // Empty result
 		}
-		
-		pool.close;
-		});
-	});
 });
