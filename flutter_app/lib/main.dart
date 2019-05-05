@@ -662,9 +662,10 @@ class PhotoRouteState extends State<PhotoRoute> {
               ),
             ]
         ),
-        body: Builder(
+        body: ListView( children: <Widget>[
+          Builder(
             builder: (context) => Center(
-                child:  Form(
+                child: Form(
                     key: _formKey3,
                     child: Padding(
                       padding: EdgeInsets.only(left: 50, right: 50, top: 50),
@@ -752,6 +753,7 @@ class PhotoRouteState extends State<PhotoRoute> {
                     ))
             )
         )
+    ])
     );
   }
 }
