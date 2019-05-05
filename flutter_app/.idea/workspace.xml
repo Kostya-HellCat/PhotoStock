@@ -18,6 +18,13 @@
       <change beforePath="$PROJECT_DIR$/build/app/outputs/apk/app.apk.sha1" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/apk/app.apk.sha1" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/outputs/apk/debug/app-debug.apk" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/apk/debug/app-debug.apk" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../img/5gmJiPtWZ8sYaBORr9e.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../img/HY9gFz3nza6YzRmRcGB.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../img/PWsl8eS98JMjKHZnCsP.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../img/PzpF3cxIYkOFAs2SUJt.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../img/RbOpYZ6aE38oY_Gv8aq.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../img/fQfBNuiVwNa_ZtrSWF8.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../img/rST_kJ606HRMB1S5_P7.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../server.js" beforeDir="false" afterPath="$PROJECT_DIR$/../server.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,8 +38,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="571" column="128" selection-start-line="571" selection-start-column="128" selection-end-line="571" selection-end-column="128" />
+            <state relative-caret-position="272">
+              <caret line="626" column="22" lean-forward="true" selection-start-line="626" selection-start-column="22" selection-end-line="626" selection-end-column="22" />
               <folding>
                 <element signature="e#353#712#0" />
                 <element signature="e#770#1233#0" />
@@ -45,7 +52,6 @@
                 <element signature="e#3894#3945#0" />
                 <element signature="e#9111#14136#0" />
                 <element signature="e#18687#18756#0" />
-                <element signature="e#18752#24930#0" />
               </folding>
             </state>
           </provider>
@@ -64,8 +70,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>req_auth</find>
-      <find>context2</find>
       <find>RegErrorPop</find>
       <find>UserRoute</find>
       <find>response</find>
@@ -94,6 +98,8 @@
       <find>base</find>
       <find>upda</find>
       <find>img</find>
+      <find>Upda</find>
+      <find>192.168.1.37</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -334,8 +340,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="571" column="128" selection-start-line="571" selection-start-column="128" selection-end-line="571" selection-end-column="128" />
+        <state relative-caret-position="272">
+          <caret line="626" column="22" lean-forward="true" selection-start-line="626" selection-start-column="22" selection-end-line="626" selection-end-column="22" />
           <folding>
             <element signature="e#353#712#0" />
             <element signature="e#770#1233#0" />
@@ -348,7 +354,6 @@
             <element signature="e#3894#3945#0" />
             <element signature="e#9111#14136#0" />
             <element signature="e#18687#18756#0" />
-            <element signature="e#18752#24930#0" />
           </folding>
         </state>
       </provider>

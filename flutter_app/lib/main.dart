@@ -196,7 +196,7 @@ class _AuthRouteState extends State<AuthRoute> {
 
   req_auth() async {
 
-    var response = await http.post('http://192.168.1.37:1337/auth', body: {'username' : UserData.username, 'password' : UserData.password});
+    var response = await http.post('http://192.168.1.190:1337/auth', body: {'username' : UserData.username, 'password' : UserData.password});
 
     if (response.statusCode == 200){
       Map<String, dynamic> _jsonMap = json.decode(response.body);
@@ -317,7 +317,7 @@ class RegRoute extends StatelessWidget {
 
   req_reg(context) async {
 
-    var response = await http.post('http://192.168.1.37:1337/reg', body: {'username' : UserData.username, 'password' : UserData.password, 'email' : UserData.email, 'phone' : UserData.phone});
+    var response = await http.post('http://192.168.1.190:1337/reg', body: {'username' : UserData.username, 'password' : UserData.password, 'email' : UserData.email, 'phone' : UserData.phone});
     if (response.statusCode == 200){
       Navigator.push(context, PageRouteBuilder(
       opaque: false,
@@ -569,7 +569,7 @@ class PhotoList extends State<MyBody> {
                 itemCount: UserData.photoCount,
                 itemBuilder: (context, i) {
                   //i++;
-                  return new GridTile(child: new Image.network('http://192.168.1.37:1337/img?photo_name=${UserData.photo[i]}'));
+                  return new GridTile(child: new Image.network('http://192.168.1.190:1337/img?photo_name=${UserData.photo[i]}'));
                 });
             }
           } else {
@@ -609,12 +609,12 @@ class PhotoRouteState extends State<PhotoRoute> {
     });
   }
 
-  void _upload() {
+  _upload() {
     if (_image == null) return;
     String base64Image = base64Encode(_image.readAsBytesSync());
     String fileName = _image.path.split("/").last;
 
-    http.post('http://192.168.1.37:1337/upload', body: {
+    http.post('http://192.168.1.190:1337/upload', body: {
       'user_id': UserData.id.toString(),
       'image': base64Image,
       'name': fileName,
@@ -622,7 +622,9 @@ class PhotoRouteState extends State<PhotoRoute> {
       'photo_cost': photo['cost'],
       'photo_tags': photo['tags'],
     }).then((res) {
-      return res.statusCode;
+      UserData.photo.add(res.body);
+      UserData.photoCount++;
+      return res.body;
     }).catchError((err) {
       print(err);
     });
@@ -726,6 +728,8 @@ class PhotoRouteState extends State<PhotoRoute> {
                                               content: Text('Обработка...')));
                                       _formKey3.currentState.save();
                                       _upload();
+                                      UserData.updated();
+
                                           Navigator.push(context, PageRouteBuilder(
                                               opaque: false,
                                               pageBuilder: (BuildContext context, _, __) => PhotoOkPopup()
@@ -738,7 +742,6 @@ class PhotoRouteState extends State<PhotoRoute> {
                                       ));
                                     }
                                   }
-                                  //req_reg(context);
                                 },
                                 child: Text('Загрузить'),
                               ),

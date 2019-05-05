@@ -209,7 +209,7 @@ app.post('/upload', function(req, res){
   var img = req.fields.image;
   var realFile = Buffer.from(img,"base64");
   
-  fs.writeFile(hashname, realFile, function(err) {
+  fs.writeFile('img\\'+hashname, realFile, function(err) {
       if(err)
          console.log(err);
    });
@@ -219,15 +219,13 @@ app.post('/upload', function(req, res){
 		return console.error('error fetching client from pool', err)
 		}
 		
-		console.log(req.fields.user_id, req.fields.photo_name, req.fields.photo_cost, hashname);
-		
 		pool.query('INSERT INTO photos (author_id,photo_name,photo_price,photo_src) VALUES ('+req.fields.user_id+',\''+req.fields.photo_name+'\',\''+req.fields.photo_cost+'\',\''+hashname+'\')', [], function (err, result) {
 		if (err) {
 		  return console.error('error happened during query', err)
 		  res.sendStatus(400); //Bad query
 		}
 		else{
-		res.status(200).send('OK');
+		res.status(200).send(hashname);
 		}
 	pool.close;
 		});
