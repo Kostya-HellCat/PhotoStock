@@ -178,6 +178,7 @@ class UserData{
   static String phone = '';
   static var photo = [];
   static int photoCount;
+  static int CurrCount;
 
   static final _changedStreamController = StreamController<UserDataState>.broadcast();
   static Stream<UserDataState> get userDataState => _changedStreamController.stream;
@@ -342,8 +343,6 @@ class RegRoute extends StatelessWidget {
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -470,7 +469,25 @@ class UserRoute extends StatelessWidget {
             ),
           ]
       ),
-      drawer: Text('drawer'), //левая навигация
+      drawer: Column(
+        children: <Widget>[
+          new Divider(),
+          FlatButton(
+            padding: EdgeInsets.symmetric(horizontal: 50),
+            color: Colors.grey[400],
+            child: Text('Топ', textAlign: TextAlign.center),
+            onPressed: () {
+            },
+          ),
+          FlatButton(
+            padding: EdgeInsets.symmetric(horizontal: 50),
+            color: Colors.grey[400],
+            child: Text('Топ', textAlign: TextAlign.center),
+            onPressed: () {
+            },
+          ),
+        ],
+      ), //левая навигация
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context, new MaterialPageRoute(
@@ -492,7 +509,6 @@ class UserRoute extends StatelessWidget {
                 Expanded(
                     child: Column(
                       children: <Widget>[
-
                         Text('Рейтинг', textAlign: TextAlign.center),
                         Text(UserData.raiting.toString(), textAlign: TextAlign.center),
                       ]
@@ -563,13 +579,24 @@ class PhotoList extends State<MyBody> {
               );
             }else{
             return new GridView.builder(
+                physics: const AlwaysScrollableScrollPhysics(), // как-то надо добавить рефреш индикатор RefreshIndicator
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 4, crossAxisSpacing: 3.0, mainAxisSpacing: 1.0,),
                 itemCount: UserData.photoCount,
                 itemBuilder: (context, i) {
-                  //i++;
-                  return new GridTile(child: new Image.network('http://192.168.1.190:1337/img?photo_name=${UserData.photo[i]}'));
+                  return new GridTile(
+                      child: GestureDetector(
+                        onTap: (){
+                          Navigator.push(context, PageRouteBuilder(
+                              opaque: false,
+                              pageBuilder: (BuildContext context, _, __) => ImageGallery()
+                          ));
+                          UserData.CurrCount = i;
+                        },
+                        child: new Image.network('http://192.168.1.190:1337/img?photo_name=${UserData.photo[i]}')
+                      )
+                  );
                 });
             }
           } else {
@@ -662,7 +689,8 @@ class PhotoRouteState extends State<PhotoRoute> {
               ),
             ]
         ),
-        body: ListView( children: <Widget>[
+        body: ListView(
+            children: <Widget>[
           Builder(
             builder: (context) => Center(
                 child: Form(
@@ -754,6 +782,53 @@ class PhotoRouteState extends State<PhotoRoute> {
             )
         )
     ])
+    );
+  }
+}
+
+class ImageGallery extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+          children: <Widget>[
+            Container(
+                decoration: new BoxDecoration(color: Colors.black)
+            ),
+            Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: NetworkImage('http://192.168.1.190:1337/img?photo_name=${UserData.photo[UserData.CurrCount]}'),
+                    fit: BoxFit.fitWidth,
+                ),
+              ),
+            ),
+            AppBar(
+                backgroundColor: Colors.transparent,
+                leading: Builder(
+                  builder: (BuildContext context) {
+                    return IconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      //tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+                    );
+                  },
+                ),
+                actions: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.settings),
+                    tooltip: 'Settings',
+                    //onPressed: (),
+                  ),
+                ]
+            ),
+            Center(
+              child: new CircularProgressIndicator(),
+            ),
+      ],
+      )
     );
   }
 }
