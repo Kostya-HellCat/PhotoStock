@@ -3,6 +3,7 @@ var url              = require('url');
 var fs               = require('fs');
 const express        = require('express');
 const app            = express();
+var thumb 			 = require('node-thumbnail').thumb;
 const formidable     = require('express-formidable');
 const shortid = require('shortid');
 const { Pool } = require('pg')
@@ -54,7 +55,8 @@ app.post('/auth', function(req, res) {
         raiting : 0.00,
         avatar_src:  "",
         photo_count: 0,
-		photo : []
+		photo : [],
+		photoThumb : [],
     };
 
     // Поиск пользователя в БД. Если есть, то ключ session = 1.
@@ -97,6 +99,7 @@ app.post('/auth', function(req, res) {
 						
 						while (result.rows[i] != undefined){
 							user.photo[i] = result.rows[i].photo_src;
+							user.photoThumb[i] = result.rows[i].photo_thumb;
 							i++;
 						}
 						
@@ -205,21 +208,34 @@ app.post('/upload', function(req, res){
 
 
   var name = req.fields.name
-  var hashname = shortid.generate()+shortid.generate()+getExtension(name);
+  var hash = shortid.generate()+shortid.generate();
+  var hashname = hash+getExtension(name);
   var img = req.fields.image;
   var realFile = Buffer.from(img,"base64");
+  var thumb_hash = shortid.generate();
+  var thumb_name = hash+'_'+thumb_hash+getExtension(name);;
   
   fs.writeFile('img\\'+hashname, realFile, function(err) {
       if(err)
          console.log(err);
    });
+   
+	   thumb({
+	  source: 'img/'+hashname, // could be a filename: dest/path/image.jpg
+	  destination: 'thumbnails/',
+	  width: 100,
+	  suffix: '_'+thumb_hash,
+	  concurrency: 4
+	}, function(files, err, stdout, stderr) {
+	  console.log('All done!');
+	});
 	
 	pool.connect(function (err, client, done){
 			if (err) {
 		return console.error('error fetching client from pool', err)
 		}
 		
-		pool.query('INSERT INTO photos (author_id,photo_name,photo_price,photo_src) VALUES ('+req.fields.user_id+',\''+req.fields.photo_name+'\',\''+req.fields.photo_cost+'\',\''+hashname+'\')', [], function (err, result) {
+		pool.query('INSERT INTO photos (author_id,photo_name,photo_price,photo_src,photo_thumb) VALUES ('+req.fields.user_id+',\''+req.fields.photo_name+'\',\''+req.fields.photo_cost+'\',\''+hashname+'\',\''+thumb_name+'\')', [], function (err, result) {
 		if (err) {
 		  return console.error('error happened during query', err)
 		  res.sendStatus(400); //Bad query
@@ -240,11 +256,13 @@ app.post('/upload', function(req, res){
 app.get('/img', function(req, res) {
 	console.log('Поступил запрос по адресу /img');
 
-console.log(req.query);
 	if (req.query.photo_name !== undefined){
 			res.sendFile(__dirname+'\\img\\'+req.query.photo_name);
 		}
 		else{
-			res.sendStatus(401); // Empty result
+			if (req.query.photo_thumb !== undefined){
+			res.sendFile(__dirname+'\\thumbnails\\'+req.query.photo_thumb);
+		}
+			else {res.sendStatus(401);} // Empty result
 		}
 });

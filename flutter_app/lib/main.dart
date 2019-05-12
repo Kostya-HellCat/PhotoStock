@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'package:css_colors/css_colors.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+const ip = 'http://192.168.1.190:1337/';
 
 void main() {
   runApp(MaterialApp(
@@ -177,6 +178,7 @@ class UserData{
   static String avatar = '';
   static String phone = '';
   static var photo = [];
+  static var photoThumb = [];
   static int photoCount;
   static int CurrCount;
 
@@ -197,7 +199,7 @@ class _AuthRouteState extends State<AuthRoute> {
 
   req_auth() async {
 
-    var response = await http.post('http://192.168.1.190:1337/auth', body: {'username' : UserData.username, 'password' : UserData.password});
+    var response = await http.post('${ip}auth', body: {'username' : UserData.username, 'password' : UserData.password});
 
     if (response.statusCode == 200){
       Map<String, dynamic> _jsonMap = json.decode(response.body);
@@ -212,6 +214,7 @@ class _AuthRouteState extends State<AuthRoute> {
       UserData.phone = _jsonMap['phone'];
       UserData.photoCount = int.parse(_jsonMap['photo_count']);
       UserData.photo = _jsonMap['photo'];
+      UserData.photoThumb = _jsonMap['photoThumb'];
 
       Navigator.push(context, PageRouteBuilder(
           opaque: false,
@@ -318,7 +321,7 @@ class RegRoute extends StatelessWidget {
 
   req_reg(context) async {
 
-    var response = await http.post('http://192.168.1.190:1337/reg', body: {'username' : UserData.username, 'password' : UserData.password, 'email' : UserData.email, 'phone' : UserData.phone});
+    var response = await http.post('${ip}reg', body: {'username' : UserData.username, 'password' : UserData.password, 'email' : UserData.email, 'phone' : UserData.phone});
     if (response.statusCode == 200){
       Navigator.push(context, PageRouteBuilder(
       opaque: false,
@@ -594,7 +597,7 @@ class PhotoList extends State<MyBody> {
                           ));
                           UserData.CurrCount = i;
                         },
-                        child: new Image.network('http://192.168.1.190:1337/img?photo_name=${UserData.photo[i]}')
+                        child: new Image.network('${ip}img?photo_thumb=${UserData.photoThumb[i]}') //Загрузка миниатюры
                       )
                   );
                 });
@@ -641,7 +644,7 @@ class PhotoRouteState extends State<PhotoRoute> {
     String base64Image = base64Encode(_image.readAsBytesSync());
     String fileName = _image.path.split("/").last;
 
-    http.post('http://192.168.1.190:1337/upload', body: {
+    http.post('${ip}upload', body: {
       'user_id': UserData.id.toString(),
       'image': base64Image,
       'name': fileName,
@@ -795,12 +798,13 @@ class ImageGallery extends StatelessWidget{
             Container(
                 decoration: new BoxDecoration(color: Colors.black)
             ),
-            Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: NetworkImage('http://192.168.1.190:1337/img?photo_name=${UserData.photo[UserData.CurrCount]}'),
-                    fit: BoxFit.fitWidth,
-                ),
+            Center(
+              child: CachedNetworkImage(
+                imageUrl: "${ip}img?photo_name=${UserData.photo[UserData.CurrCount]}",
+                placeholder: (context, url) => new CircularProgressIndicator(),
+                errorWidget: (context, url, error) => new Icon(Icons.error),
+                  fadeInDuration: Duration(milliseconds: 1),
+                  fadeOutDuration: Duration(milliseconds: 1),
               ),
             ),
             AppBar(
@@ -823,9 +827,6 @@ class ImageGallery extends StatelessWidget{
                     //onPressed: (),
                   ),
                 ]
-            ),
-            Center(
-              child: new CircularProgressIndicator(),
             ),
       ],
       )
